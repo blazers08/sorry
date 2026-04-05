@@ -1480,14 +1480,35 @@
         noteInput.addEventListener("input", syncPreview);
       }
 
-      saveNoteBtn.addEventListener("click", () => {
+      saveNoteBtn.addEventListener("click", async () => {
+        const noteText = noteInput ? noteInput.value : "";
         localStorage.setItem(
           "apology_note",
           JSON.stringify({
             name: nameInput ? nameInput.value : "",
-            text: noteInput ? noteInput.value : ""
+            text: noteText
           })
         );
+
+        const trimmed = noteText.trim();
+        if (trimmed) {
+          try {
+            const response = await fetch("/api/note", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ text: trimmed })
+            });
+
+            if (!response.ok) {
+              throw new Error(`note log failed: ${response.status}`);
+            }
+          } catch (error) {
+            console.error("note log failed", error);
+          }
+        }
+
         result.textContent = "我把這段話收好了，謝謝喵願意留下心情。";
       });
 
