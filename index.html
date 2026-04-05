@@ -1,0 +1,1696 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Christie 🩷</title>
+    <link rel="icon" type="image/png" href="./assets/piglet.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --rose-1: #f3c6d2;
+        --rose-2: #e5a8bc;
+        --cream: #fff7f1;
+        --teddy-1: #e4c7aa;
+        --teddy-2: #c9a47f;
+        --sage: #cfdac8;
+        --text: #4f3e35;
+        --soft-shadow: 0 14px 30px rgba(124, 88, 67, 0.2);
+        --card-radius: 24px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Kosugi Maru", "Noto Sans TC", sans-serif;
+        color: var(--text);
+        min-height: 100vh;
+        background:
+          linear-gradient(155deg, #f8e4ea 0%, #f8e6d2 46%, #efe4d8 100%);
+        overflow-x: hidden;
+      }
+
+      body.locked {
+        overflow: hidden;
+      }
+
+      .bg-doodles {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .doodle {
+        position: absolute;
+        opacity: 0.16;
+        filter: drop-shadow(0 2px 3px rgba(98, 74, 60, 0.16));
+        animation: doodleBob ease-in-out infinite;
+      }
+
+      @keyframes doodleBob {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-8px) rotate(4deg);
+        }
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+      }
+
+      .app-shell {
+        opacity: 1;
+        transition: opacity 320ms ease;
+      }
+
+      body.locked .app-shell {
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .lock-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+      }
+
+      body:not(.locked) .lock-screen {
+        display: none;
+      }
+
+      .lock-card {
+        width: min(460px, 94vw);
+        border-radius: 24px;
+        border: 2px solid rgba(255, 247, 239, 0.95);
+        background:
+          radial-gradient(8px 8px at 14% 18%, rgba(231, 169, 188, 0.24) 0 99%, transparent 100%),
+          radial-gradient(8px 8px at 82% 24%, rgba(201, 164, 127, 0.2) 0 99%, transparent 100%),
+          radial-gradient(6px 6px at 74% 78%, rgba(231, 169, 188, 0.18) 0 99%, transparent 100%),
+          radial-gradient(6px 6px at 22% 72%, rgba(201, 164, 127, 0.16) 0 99%, transparent 100%),
+          rgba(255, 249, 244, 0.9);
+        box-shadow: var(--soft-shadow);
+        backdrop-filter: blur(3px);
+        padding: 22px;
+        text-align: center;
+      }
+
+      .lock-title {
+        margin: 4px 0 6px;
+        font-family: "Patrick Hand", cursive;
+        font-size: clamp(1.8rem, 6vw, 2.7rem);
+        color: #9d5d7b;
+      }
+
+      .lock-form {
+        display: grid;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .lock-input {
+        width: 100%;
+        border: 1px solid #d9bda5;
+        border-radius: 999px;
+        padding: 11px 14px;
+        text-align: center;
+        font: inherit;
+        color: var(--text);
+        background: #fffdfb;
+      }
+
+      .lock-btn {
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #d391a9, #bb7e92);
+        color: white;
+        font: inherit;
+        padding: 11px 16px;
+        cursor: pointer;
+      }
+
+      .lock-msg {
+        margin: 4px 0 0;
+        min-height: 1.2em;
+      }
+
+      .petals {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .petal {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+        font-size: 1.1rem;
+        line-height: 1;
+        filter: drop-shadow(0 3px 4px rgba(108, 83, 68, 0.2));
+        animation: floatDown linear infinite;
+      }
+
+      @keyframes floatDown {
+        from {
+          transform: translateY(-10vh) rotate(0deg);
+        }
+        to {
+          transform: translateY(110vh) rotate(360deg);
+        }
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        width: min(960px, 92vw);
+        margin: 24px auto 48px;
+        display: grid;
+        gap: 20px;
+      }
+
+      .card {
+        background: rgba(255, 251, 247, 0.84);
+        border: 2px solid rgba(255, 244, 236, 0.95);
+        border-radius: var(--card-radius);
+        box-shadow: var(--soft-shadow);
+        backdrop-filter: blur(2px);
+        padding: 22px;
+        opacity: 0;
+        transform: translateY(22px) scale(0.985);
+        transition: opacity 520ms ease, transform 520ms ease;
+      }
+
+      .card.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      .card.force-show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        display: block;
+      }
+
+      .story-next {
+        margin-top: 14px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #c78f76, #ad755e);
+        color: #fff;
+        font: inherit;
+        padding: 11px 18px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(130, 88, 66, 0.25);
+      }
+
+      .flow-next {
+        display: block;
+        margin: 14px auto 0;
+      }
+
+      .story-next[disabled] {
+        opacity: 0.6;
+        cursor: wait;
+      }
+
+      .next-after-read {
+        display: none;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 240ms ease, transform 240ms ease;
+      }
+
+      .next-after-read.show {
+        display: inline-block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .choice-row {
+        margin-top: 12px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .choice-btn {
+        border: none;
+        border-radius: 999px;
+        padding: 10px 20px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .choice-yes {
+        background: linear-gradient(180deg, #c78f76, #ad755e);
+        color: #fff;
+      }
+
+      .choice-no {
+        background: #f1e7dd;
+        color: #7d5f4d;
+      }
+
+      .choice-note {
+        margin-top: 8px;
+        min-height: 20px;
+        font-size: 0.9rem;
+        opacity: 0.88;
+      }
+
+      .plea-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(-50%) translateY(16px);
+        z-index: 40;
+        background: rgba(255, 250, 246, 0.96);
+        border: 1px solid #e0c3aa;
+        color: #7a5a48;
+        border-radius: 999px;
+        padding: 10px 16px;
+        box-shadow: 0 10px 24px rgba(113, 79, 61, 0.25);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 220ms ease, transform 220ms ease;
+      }
+
+      .plea-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .push-snoopy {
+        position: fixed;
+        left: -130px;
+        top: 44vh;
+        width: 156px;
+        z-index: 25;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .push-snoopy .snoopy-figure {
+        width: 100%;
+        display: block;
+        filter: drop-shadow(0 10px 16px rgba(116, 79, 94, 0.35));
+      }
+
+      .push-snoopy.run {
+        animation: snoopyPushRun 1.35s ease forwards;
+        opacity: 1;
+      }
+
+      .push-snoopy.run .snoopy-figure {
+        animation: snoopyWalkBeat 260ms steps(2, end) infinite;
+        transform-origin: 50% 78%;
+      }
+
+      .card.push-away {
+        animation: cardPushed 1.1s ease forwards;
+      }
+
+      @keyframes snoopyPushRun {
+        0% {
+          transform: translateX(0) translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        15% {
+          opacity: 1;
+        }
+        60% {
+          transform: translateX(52vw) translateY(-8px) rotate(-2deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(118vw) translateY(0) rotate(1deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes snoopyWalkBeat {
+        0% {
+          transform: translateY(0) rotate(-2deg) scaleX(1);
+        }
+        50% {
+          transform: translateY(-4px) rotate(2deg) scaleX(0.985);
+        }
+        100% {
+          transform: translateY(0) rotate(-2deg) scaleX(1);
+        }
+      }
+
+      @keyframes cardPushed {
+        0% {
+          transform: translateX(0) rotate(0deg) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(112%) rotate(3deg) scale(0.97);
+          opacity: 0;
+        }
+      }
+
+      .hero {
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero h1 {
+        margin: 6px 0 4px;
+        font-family: "Patrick Hand", cursive;
+        font-size: clamp(2rem, 7vw, 3.5rem);
+        letter-spacing: 0.02em;
+        color: #9b6178;
+      }
+
+      .hero p {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .sticker-row {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 10px;
+        font-size: 1.4rem;
+      }
+
+      .envelope {
+        text-align: center;
+      }
+
+      .envelope button {
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #d89cb2, #bb7f93);
+        color: white;
+        font: inherit;
+        padding: 12px 22px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(154, 101, 121, 0.28);
+      }
+
+      .card3-commit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .card3-commit {
+        border: 1px solid #ffd9ea;
+        border-radius: 16px;
+        background: #fff;
+        color: #7a5765;
+        text-align: left;
+        font: inherit;
+        padding: 12px;
+        cursor: pointer;
+        transition: transform 120ms ease, background 220ms ease, border-color 220ms ease;
+      }
+
+      .card3-commit:hover {
+        transform: translateY(-2px);
+      }
+
+      .card3-commit.done {
+        background: linear-gradient(120deg, #ffeef6, #f3fde8);
+        border-color: #f4a7ca;
+      }
+
+      .card3-reveal {
+        display: none;
+        margin-top: 10px;
+        border: 1px dashed #f6a8ca;
+        border-radius: 14px;
+        background: #fff8fc;
+        padding: 11px 12px;
+        line-height: 1.7;
+      }
+
+      .card3-reveal.show {
+        display: block;
+        animation: card3RevealIn 420ms ease forwards;
+      }
+
+      #goCard4.show {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @keyframes card3RevealIn {
+        from {
+          opacity: 0;
+          transform: translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .letter {
+        margin-top: 14px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 420ms ease;
+        text-align: left;
+      }
+
+      .letter.open {
+        max-height: 500px;
+      }
+
+      .fog-letter {
+        border: 1px dashed #f7a7ca;
+        border-radius: 14px;
+        background: rgba(255, 249, 253, 0.9);
+        padding: 12px;
+      }
+
+      .open-hint {
+        display: none;
+        margin: 8px 0 8px;
+        color: #9a647f;
+        font-size: 0.9rem;
+        text-align: left;
+        padding-left: 2px;
+      }
+
+      .open-hint.show {
+        display: block;
+        animation: hintBob 900ms ease-in-out infinite;
+      }
+
+      @keyframes hintBob {
+        0% {
+          transform: translateY(0);
+          opacity: 0.88;
+        }
+        50% {
+          transform: translateY(4px);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 0.88;
+        }
+      }
+
+      .fog-line {
+        margin: 0 0 8px;
+        line-height: 1.75;
+        border-radius: 10px;
+        padding: 4px 6px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .fog-line:last-child {
+        margin-bottom: 0;
+      }
+
+      .fog-line-text {
+        display: inline-block;
+        color: rgba(91, 75, 95, 0.2);
+        filter: blur(3px);
+        clip-path: inset(0 100% 0 0);
+        transform-origin: left center;
+      }
+
+      .fog-line.revealed .fog-line-text {
+        color: var(--text);
+        filter: blur(0);
+        animation: lineReveal 1.1s ease forwards;
+      }
+
+      .fog-progress {
+        display: none;
+      }
+
+      @keyframes lineReveal {
+        0% {
+          clip-path: inset(0 100% 0 0);
+          opacity: 0.35;
+        }
+        100% {
+          clip-path: inset(0 0 0 0);
+          opacity: 1;
+        }
+      }
+
+      .section-title {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+        color: #8f5b48;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 10px;
+      }
+
+      .petal-item {
+        display: grid;
+        grid-template-columns: 32px 1fr;
+        gap: 10px;
+        align-items: start;
+        background: #fff8fb;
+        border-radius: 16px;
+        padding: 12px;
+        border: 1px solid #ffd9ea;
+      }
+
+      .petal-icon {
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: #ffe2ef;
+      }
+
+      .care-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .care-option {
+        border: 1px solid #ffe0ee;
+        border-radius: 16px;
+        background: #fff;
+        padding: 12px;
+        text-align: left;
+        color: #7a5967;
+        font: inherit;
+        cursor: pointer;
+        transition: transform 120ms ease, background 220ms ease, border-color 220ms ease;
+      }
+
+      .care-option:hover {
+        transform: translateY(-2px);
+      }
+
+      .care-option.active {
+        background: linear-gradient(120deg, #ffe9f3, #f6fde9);
+        border-color: #f2a3c6;
+      }
+
+      .care-reply {
+        margin-top: 10px;
+        border: 1px dashed #f6a8ca;
+        border-radius: 14px;
+        background: #fff8fc;
+        padding: 11px 12px;
+        min-height: 74px;
+        line-height: 1.7;
+      }
+
+      .mood-wrap {
+        margin-top: 12px;
+        border: 1px solid #ffe5f0;
+        border-radius: 14px;
+        background: rgba(255, 253, 251, 0.9);
+        padding: 10px 12px;
+      }
+
+      .mood-wrap input[type="range"] {
+        width: 100%;
+        accent-color: #d889ac;
+      }
+
+      .mood-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        opacity: 0.74;
+      }
+
+      .mood-text {
+        margin-top: 6px;
+        font-size: 0.95rem;
+      }
+
+      .actions {
+        display: grid;
+        gap: 10px;
+      }
+
+      .actions button {
+        border: none;
+        border-radius: 14px;
+        padding: 11px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .mini-game-grid {
+        display: grid;
+        gap: 10px;
+      }
+
+      .unlock-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+      }
+
+      .unlock-btn {
+        border: 1px solid #ffd3e8;
+        border-radius: 14px;
+        background: #fff;
+        padding: 10px;
+        cursor: pointer;
+        font: inherit;
+      }
+
+      .unlock-btn.done {
+        background: #ffeef6;
+        border-color: #ff9ac4;
+      }
+
+      .unlock-panel {
+        border: 1px dashed #f6a8ca;
+        border-radius: 14px;
+        padding: 10px 12px;
+        background: #fff8fc;
+        min-height: 74px;
+      }
+
+      .chip {
+        display: inline-block;
+        margin-right: 8px;
+        margin-bottom: 6px;
+        border-radius: 999px;
+        background: #eef9df;
+        color: #52754f;
+        padding: 5px 10px;
+        font-size: 0.86rem;
+      }
+
+      .note-box {
+        display: grid;
+        gap: 10px;
+      }
+
+      .note-box input,
+      .note-box textarea {
+        width: 100%;
+        border: 1px solid #ffd3e8;
+        border-radius: 12px;
+        padding: 10px;
+        font: inherit;
+        color: var(--text);
+        background: #fff;
+      }
+
+      .note-box textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .note-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .note-actions button {
+        border: none;
+        border-radius: 12px;
+        font: inherit;
+        padding: 9px 14px;
+        cursor: pointer;
+      }
+
+      .btn-save {
+        background: #ff8fbb;
+        color: white;
+      }
+
+      .btn-clear {
+        background: #f1f6e8;
+        color: #50714c;
+      }
+
+      .preview-note {
+        border: 1px solid #ffe0ef;
+        border-radius: 12px;
+        background: #fff;
+        padding: 10px;
+        min-height: 56px;
+      }
+
+      .snoopy-stage {
+        position: relative;
+        overflow: hidden;
+        border-radius: 18px;
+        border: 1px solid #ffd7e9;
+        background:
+          radial-gradient(circle at 15% 20%, #fff6fa 0 30%, transparent 31%),
+          linear-gradient(180deg, #fff4df 0%, #f1ffea 100%);
+        min-height: 170px;
+        padding: 10px;
+      }
+
+      .snoopy-track {
+        position: absolute;
+        left: -90px;
+        bottom: 14px;
+        width: 106px;
+        animation: snoopyRun 8s linear infinite;
+      }
+
+      .snoopy-track img {
+        display: none;
+      }
+
+      .snoopy-track .snoopy-figure {
+        width: 100%;
+        display: block;
+        filter: drop-shadow(0 8px 10px rgba(136, 89, 104, 0.25));
+        cursor: pointer;
+        animation: snoopyWalkBeat 300ms steps(2, end) infinite;
+        transform-origin: 50% 78%;
+      }
+
+      .snoopy-figure canvas {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .snoopy-stage.paused .snoopy-track {
+        animation-play-state: paused;
+      }
+
+      .snoopy-stage.paused .snoopy-track .snoopy-figure {
+        animation-play-state: paused;
+      }
+
+      .snoopy-stage.fast .snoopy-track {
+        animation-duration: 4s;
+      }
+
+      .snoopy-stage.slow .snoopy-track {
+        animation-duration: 12s;
+      }
+
+      .heart-pop {
+        position: absolute;
+        bottom: 72px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        pointer-events: none;
+        font-size: 1.2rem;
+      }
+
+      .heart-pop.show {
+        animation: heartUp 1s ease;
+      }
+
+      .heart-burst {
+        position: fixed;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        z-index: 45;
+        will-change: transform, opacity;
+        animation: burstFly 900ms ease-out forwards;
+      }
+
+      @keyframes burstFly {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) scale(0.7);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--dx), var(--dy)) scale(1.25) rotate(var(--rot));
+        }
+      }
+
+      @keyframes snoopyRun {
+        0% {
+          transform: translateX(0) rotate(0deg);
+        }
+        40% {
+          transform: translateX(52vw) rotate(-2deg);
+        }
+        70% {
+          transform: translateX(78vw) rotate(2deg);
+        }
+        100% {
+          transform: translateX(108vw) rotate(0deg);
+        }
+      }
+
+      @keyframes heartUp {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, 8px) scale(0.8);
+        }
+        25% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -42px) scale(1.15);
+        }
+      }
+
+      .btn-chat {
+        background: #ff8ab8;
+        color: white;
+      }
+
+      .btn-rest {
+        background: #eef8e3;
+        color: #4c734c;
+      }
+
+      .result {
+        margin-top: 8px;
+        min-height: 20px;
+        font-size: 0.95rem;
+      }
+
+      .music-dock {
+        position: fixed;
+        right: 14px;
+        bottom: 14px;
+        z-index: 12;
+        display: grid;
+        justify-items: end;
+        gap: 8px;
+      }
+
+      .music-toggle {
+        border: none;
+        border-radius: 999px;
+        padding: 10px 14px;
+        font: inherit;
+        color: #fff;
+        background: linear-gradient(180deg, #c78f76, #ad755e);
+        box-shadow: 0 10px 24px rgba(145, 98, 77, 0.35);
+        cursor: pointer;
+      }
+
+      .music-panel {
+        width: min(360px, calc(100vw - 24px));
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: max-height 260ms ease, opacity 220ms ease, transform 220ms ease;
+      }
+
+      .music-panel.open {
+        max-height: 180px;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .tiny {
+        opacity: 0.75;
+        font-size: 0.82rem;
+      }
+
+      @media (max-width: 640px) {
+        .card {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body class="locked">
+    <div class="bg-doodles" aria-hidden="true" id="bgDoodles"></div>
+    <div class="petals" aria-hidden="true" id="petals"></div>
+
+    <section class="lock-screen" id="lockScreen">
+      <div class="lock-card">
+        <p class="lock-title">🧸 喵喵 🐈</p>
+        <p class="tiny">喵寶，對不起我錯了，原諒我嘛，不要不理我了QQ</p>
+        <div class="lock-form">
+          <input
+            class="lock-input"
+            id="passwordInput"
+            type="password"
+            placeholder="小豬"
+            autocomplete="off"
+          />
+          <button class="lock-btn" id="unlockBtn" type="button">解鎖</button>
+          <p class="tiny lock-msg" id="unlockMsg"></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="app-shell" id="appShell">
+    <main class="page">
+      <section class="card hero" id="card1">
+        <h1>喵～我想要我們在一起，原諒我，我們和好好不好QQ</h1>
+        <p>好好花時間在我們身上、學會怎麼去愛護喵</p>
+        <div class="sticker-row" aria-hidden="true">
+          <span>🎀</span><span>🐱</span><span>🐶</span><span>🧸</span><span>🌸</span><span>🍀</span>
+        </div>
+        <p class="tiny">喵喵～先原諒我一點點好不</p>
+        <div class="choice-row">
+          <button class="choice-btn choice-yes" id="acceptYes" type="button">好</button>
+          <button class="choice-btn choice-no" id="acceptNo" type="button">不好</button>
+        </div>
+      </section>
+
+      <section class="card envelope" id="card2">
+        <button id="openLetter">💌 打開信</button>
+        <div class="letter" id="letter">
+          <div class="open-hint" id="openHint">⬇️</div>
+          <div
+            class="fog-letter"
+            id="fogLetter"
+            aria-label="點擊每一行會慢慢顯示文字"
+          ></div>
+        </div>
+        <button class="story-next next-after-read" id="goCard3" type="button">💗 我收到了</button>
+      </section>
+
+      <section class="card" id="card3">
+        <h2 class="section-title">最優先積極做到的基本三件事</h2>
+        <div class="card3-commit-grid" id="card3CommitGrid">
+          <button class="card3-commit" type="button" data-commit="1">🧸 重新建立喵對我的信任安全感</button>
+          <button class="card3-commit" type="button" data-commit="2">🌷 說到做到</button>
+          <button class="card3-commit" type="button" data-commit="3">🌻 好好顧喵</button>
+        </div>
+        <div class="card3-reveal" id="card3Reveal">先點一張承諾卡，我會用具體方式說明。</div>
+        <button class="story-next next-after-read" id="goCard4" type="button">喵喵，再原諒我多一點點啦～</button>
+      </section>
+
+      <section class="card" id="card4">
+        <h2 class="section-title">喵喵希望我現在做什麼</h2>
+        <div class="care-grid" id="careGrid">
+          <button class="care-option" type="button" data-care="listen">👂 好好確實做到</button>
+          <button class="care-option" type="button" data-care="hug">🫶 好好抱喵</button>
+          <button class="care-option" type="button" data-care="quiet">🌙 陪伴喵喵入睡</button>
+        </div>
+        <div class="care-reply" id="careReply">喵喵先選一個～</div>
+        <div class="mood-wrap">
+          <div class="tiny">喵喵心情溫度計（1-5）</div>
+          <input id="moodRange" type="range" min="1" max="5" value="3" />
+          <div class="mood-labels"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+          <div class="mood-text" id="moodText">謝謝喵願意看到這裡。</div>
+        </div>
+        <button class="story-next next-after-read" id="goCard5" type="button">如果喵願意，往下看一點點</button>
+      </section>
+
+      <section class="card mini-game-grid" id="card5">
+        <h2 class="section-title">4) 想讓喵知道的</h2>
+        <p class="tiny">喵可以隨意點</p>
+        <div class="unlock-row">
+          <button class="unlock-btn" type="button" data-step="1">🎀</button>
+          <button class="unlock-btn" type="button" data-step="2">🌸</button>
+          <button class="unlock-btn" type="button" data-step="3">🍀</button>
+        </div>
+        <div class="unlock-panel" id="unlockPanel">先點上面的按鈕看看啦～</div>
+        <div id="unlockProgress"></div>
+        <button class="story-next flow-next" type="button" data-next="6">下一頁</button>
+      </section>
+
+      <section class="card note-box" id="card6">
+        <h2 class="section-title">5) Snoopy 陪喵散步一下</h2>
+        <p class="tiny">可以調速度、暫停，點 Snoopy 會跳出小愛心。</p>
+        <div class="snoopy-stage" id="snoopyStage">
+          <div class="snoopy-track">
+            <div class="snoopy-figure" id="snoopyAvatar" aria-label="snoopy">
+              <canvas id="snoopyCanvasStage" width="560" height="560" aria-hidden="true"></canvas>
+            </div>
+            <div class="heart-pop" id="heartPop">💗 💗 💗</div>
+          </div>
+        </div>
+        <div class="note-actions">
+          <button class="btn-save" type="button" id="snoopyToggle">暫停散步</button>
+          <button class="btn-clear" type="button" id="snoopySpeed">切換速度：正常</button>
+        </div>
+        <button class="story-next flow-next" type="button" data-next="7">好，下一頁</button>
+      </section>
+
+      <section class="card note-box" id="card7">
+        <h2 class="section-title">6) 想留一句話也可以</h2>
+        <textarea id="noteInput" maxlength="180" placeholder="如果喵願意，可以說些想說的..."></textarea>
+        <div class="note-actions">
+          <button class="btn-save" type="button" id="saveNote">放進小信箱</button>
+          <button class="btn-clear" type="button" id="clearNote">清空</button>
+        </div>
+        <div class="preview-note" id="previewNote">還沒有內容</div>
+        <button class="story-next flow-next" type="button" data-next="8">把最後的話看完</button>
+      </section>
+
+      <section class="card actions" id="card8">
+        <h2 class="section-title">7) 喵願意稍微原諒我，給我們機會嗎</h2>
+        <button class="btn-chat" id="btnChat">願意</button>
+        <button class="btn-rest" id="btnRest">再看看我表現</button>
+        <p class="result" id="result"></p>
+      </section>
+    </main>
+
+    <div class="music-dock">
+      <button class="music-toggle" id="musicToggle">🎵 開啟音樂</button>
+      <div class="music-panel" id="musicPanel">
+        <iframe
+          id="musicFrame"
+          data-testid="embed-iframe"
+          data-src="https://open.spotify.com/embed/playlist/0trjwWcIEWjsMxskJ8Vcke?utm_source=generator&autoplay=1"
+          style="border-radius: 12px"
+          src="about:blank"
+          width="100%"
+          height="152"
+          frameborder="0"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+    </div>
+
+    <div class="push-snoopy" id="pushSnoopy" aria-hidden="true">
+      <div class="snoopy-figure">
+        <canvas id="snoopyCanvasPush" width="560" height="560" aria-hidden="true"></canvas>
+      </div>
+    </div>
+    <div class="plea-toast" id="pleaToast"></div>
+
+    <script>
+      const SITE_PASSWORD = "piglet";
+      const lockScreen = document.getElementById("lockScreen");
+      const passwordInput = document.getElementById("passwordInput");
+      const unlockBtn = document.getElementById("unlockBtn");
+      const unlockMsg = document.getElementById("unlockMsg");
+      const appShell = document.getElementById("appShell");
+
+      const letter = document.getElementById("letter");
+      const openLetterBtn = document.getElementById("openLetter");
+      const careOptionBtns = [...document.querySelectorAll(".care-option")];
+      const careReply = document.getElementById("careReply");
+      const moodRange = document.getElementById("moodRange");
+      const moodText = document.getElementById("moodText");
+      const goCard5Btn = document.getElementById("goCard5");
+      const result = document.getElementById("result");
+      const bgDoodles = document.getElementById("bgDoodles");
+      const petalsHost = document.getElementById("petals");
+      const unlockBtns = [...document.querySelectorAll(".unlock-btn")];
+      const unlockPanel = document.getElementById("unlockPanel");
+      const unlockProgress = document.getElementById("unlockProgress");
+      const noteInput = document.getElementById("noteInput");
+      const nameInput = document.getElementById("nameInput");
+      const previewNote = document.getElementById("previewNote");
+      const saveNoteBtn = document.getElementById("saveNote");
+      const clearNoteBtn = document.getElementById("clearNote");
+      const snoopyStage = document.getElementById("snoopyStage");
+      const snoopyToggle = document.getElementById("snoopyToggle");
+      const snoopySpeed = document.getElementById("snoopySpeed");
+      const snoopyAvatar = document.getElementById("snoopyAvatar");
+      const heartPop = document.getElementById("heartPop");
+      const musicToggle = document.getElementById("musicToggle");
+      const musicPanel = document.getElementById("musicPanel");
+      const musicFrame = document.getElementById("musicFrame");
+      const fogLetter = document.getElementById("fogLetter");
+      const openHint = document.getElementById("openHint");
+      const goCard3Btn = document.getElementById("goCard3");
+      const card3CommitBtns = [...document.querySelectorAll(".card3-commit")];
+      const card3Reveal = document.getElementById("card3Reveal");
+      const goCard4Btn = document.getElementById("goCard4");
+      const snoopyCanvasStage = document.getElementById("snoopyCanvasStage");
+      const snoopyCanvasPush = document.getElementById("snoopyCanvasPush");
+      const acceptYesBtn = document.getElementById("acceptYes");
+      const acceptNoBtn = document.getElementById("acceptNo");
+      const pleaToast = document.getElementById("pleaToast");
+      const pushSnoopy = document.getElementById("pushSnoopy");
+      const allCards = [...document.querySelectorAll(".page .card")];
+      const flowNextBtns = [...document.querySelectorAll(".flow-next")];
+      const letterLines = [
+        "之前我不成熟的所作所為，不僅讓喵很受傷，也阻礙了我們之間的關係。",
+        "同樣的錯，一直反覆犯。不珍惜喵給的機會，反而又造成更嚴重的傷害。",
+        "這不是對待一個心愛之人該有的樣子與行為。",
+        "喵只是單純的要我做到最基本的：誠實、言而有信。犯錯了，沒關係，知道哪裡錯，好好跟喵道歉補償，下次別再犯。",
+        "然後好好理解和好好聽喵，而不是急著解釋、反駁。",
+        "我弄出來的洞很大，很難一時半刻間彌補完，但我想如果堅持的話，有天也會像愚公一樣。",
+        "更何況這些是為了我愛的人",
+        "喵喵，對不起",
+      ];
+      let revealedLineCount = 0;
+      const card3Done = new Set();
+      let carePicked = false;
+      let moodTouched = false;
+      let activeCardIndex = 0;
+      let noClickCount = 0;
+      let pleaToastTimer;
+
+      const drawSorryPySnoopy = (canvas, cfg = {}) => {
+        const ctx = canvas.getContext("2d");
+        const xOffset = cfg.xOffset ?? 0;
+        const yOffset = cfg.yOffset ?? 0;
+        const fitScale = cfg.fitScale ?? 0.9;
+        const stroke = cfg.stroke ?? "#111";
+
+        const cmds = [
+          ["penup"], ["setposition", 50, 175], ["pendown"], ["circle", -200, -40],
+          ["left", 190], ["circle", -400, 8], ["right", 10], ["circle", -600, 3],
+          ["goto", -163, 66], ["goto", -200, 62], ["right", 25], ["circle", 100, 40],
+          ["circle", 200, 10], ["circle", 150, 20], ["left", 10], ["circle", 150, 8],
+          ["left", 10], ["circle", 150, 10], ["left", 5], ["circle", 200, 5],
+          ["left", 10], ["circle", 300, 5], ["left", 10], ["circle", 300, 10],
+          ["goto", -150, -152], ["goto", -60, -165], ["goto", -55, -180], ["goto", -53, -195],
+          ["goto", -70, -230], ["penup"], ["goto", -58, -195], ["pendown"], ["goto", 30, -195],
+          ["penup"], ["goto", 50, 175], ["pendown"], ["left", 10], ["circle", -200, 50],
+          ["circle", -500, 10], ["right", 3], ["circle", -800, 4], ["right", 10],
+          ["circle", -1200, 1], ["right", 20], ["circle", -1200, 1], ["right", 5],
+          ["circle", -900, 2], ["right", 20], ["goto", 200, -140], ["goto", 190, -150],
+          ["goto", 177, -155], ["goto", 160, -162], ["goto", 150, -160], ["goto", 130, -155],
+          ["goto", 120, -150], ["goto", 110, -140], ["right", 130], ["circle", 40, 20],
+          ["right", 30], ["circle", 40, 20], ["goto", 110, -80], ["goto", 115, -60],
+          ["goto", 125, -40], ["penup"], ["goto", 105, -135], ["pendown"], ["goto", 80, -150],
+          ["left", 100], ["circle", 40, 20], ["right", 25], ["circle", 40, 60], ["goto", 42, -200],
+          ["goto", 50, -230], ["penup"], ["width", 13], ["goto", -180, -150], ["pendown"],
+          ["goto", -165, -133], ["goto", -140, -110], ["goto", -115, -100], ["goto", -90, -100],
+          ["goto", -40, -100], ["goto", -15, -110], ["goto", 0, -150], ["penup"], ["goto", -90, 22],
+          ["width", 16], ["pendown"], ["goto", -92, 3], ["penup"], ["goto", -40, 22], ["pendown"],
+          ["width", 16], ["goto", -40, 3], ["penup"], ["goto", -191, -39], ["pendown"], ["width", 35],
+          ["begin_fill"], ["goto", -180, -37], ["goto", -169, -39], ["goto", -180, -42], ["goto", -190, -39], ["end_fill"],
+          ["penup"], ["goto", -100, 110], ["pendown"], ["width", 10], ["goto", -105, 120],
+          ["width", 11], ["goto", -120, 119], ["penup"], ["width", 10], ["goto", -45, 120],
+          ["pendown"], ["goto", -29, 119], ["goto", -27, 110], ["penup"], ["goto", 178, 0],
+          ["width", 30], ["pendown"], ["begin_fill"], ["right", 145], ["goto", 190, -85], ["right", 35],
+          ["goto", 140, -120], ["goto", 142, -95], ["goto", 160, -50], ["goto", 173, -10], ["goto", 178, 0], ["end_fill"]
+        ];
+
+        const degToRad = (deg) => (deg * Math.PI) / 180;
+        const ops = [];
+        const bbox = { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity };
+        const addPointToBox = (x, y) => {
+          if (x < bbox.minX) bbox.minX = x;
+          if (y < bbox.minY) bbox.minY = y;
+          if (x > bbox.maxX) bbox.maxX = x;
+          if (y > bbox.maxY) bbox.maxY = y;
+        };
+
+        const st = { x: 0, y: 0, heading: 0, width: 15, down: true, fill: false, fillPts: [] };
+        const pushFill = () => {
+          if (st.fill) st.fillPts.push([st.x, st.y]);
+        };
+        const lineTo = (nx, ny) => {
+          addPointToBox(nx, ny);
+          addPointToBox(st.x, st.y);
+          if (st.down) ops.push({ type: "line", x1: st.x, y1: st.y, x2: nx, y2: ny, width: st.width });
+          st.x = nx;
+          st.y = ny;
+          pushFill();
+        };
+        const arc = (radius, extent) => {
+          const steps = Math.max(8, Math.ceil(Math.abs(extent) / 3));
+          const sign = radius >= 0 ? 1 : -1;
+          const r = Math.abs(radius);
+          const h = degToRad(st.heading);
+          const nx = -Math.sin(h);
+          const ny = Math.cos(h);
+          const cx = st.x + nx * radius;
+          const cy = st.y + ny * radius;
+          const start = Math.atan2(st.y - cy, st.x - cx);
+          const delta = degToRad(extent) * sign;
+          let px = st.x;
+          let py = st.y;
+          for (let i = 1; i <= steps; i += 1) {
+            const a = start + (delta * i) / steps;
+            const tx = cx + Math.cos(a) * r;
+            const ty = cy + Math.sin(a) * r;
+            addPointToBox(tx, ty);
+            if (st.down) ops.push({ type: "line", x1: px, y1: py, x2: tx, y2: ty, width: st.width });
+            px = tx;
+            py = ty;
+            if (st.fill) st.fillPts.push([tx, ty]);
+          }
+          st.x = px;
+          st.y = py;
+          st.heading += extent * sign;
+        };
+
+        for (const [name, a, b] of cmds) {
+          if (name === "penup") st.down = false;
+          else if (name === "pendown") {
+            st.down = true;
+            pushFill();
+          } else if (name === "setposition" || name === "goto") lineTo(a, b);
+          else if (name === "left") st.heading += a;
+          else if (name === "right") st.heading -= a;
+          else if (name === "width") st.width = a;
+          else if (name === "circle") arc(a, b);
+          else if (name === "begin_fill") {
+            st.fill = true;
+            st.fillPts = [[st.x, st.y]];
+          } else if (name === "end_fill") {
+            if (st.fillPts.length > 2) ops.push({ type: "fill", pts: [...st.fillPts] });
+            st.fill = false;
+            st.fillPts = [];
+          }
+        }
+
+        const pad = 22;
+        const boxW = Math.max(1, bbox.maxX - bbox.minX);
+        const boxH = Math.max(1, bbox.maxY - bbox.minY);
+        const s = Math.min((canvas.width - pad * 2) / boxW, (canvas.height - pad * 2) / boxH) * fitScale;
+        const usedW = boxW * s;
+        const usedH = boxH * s;
+        const ox = (canvas.width - usedW) / 2 - bbox.minX * s + xOffset;
+        const oy = (canvas.height - usedH) / 2 + bbox.maxY * s + yOffset;
+        const map = (x, y) => [x * s + ox, -y * s + oy];
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.strokeStyle = stroke;
+        ctx.fillStyle = stroke;
+        for (const op of ops) {
+          if (op.type === "line") {
+            const [x1, y1] = map(op.x1, op.y1);
+            const [x2, y2] = map(op.x2, op.y2);
+            ctx.lineWidth = Math.max(1.5, op.width * s);
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+          } else if (op.type === "fill") {
+            const [fx, fy] = map(op.pts[0][0], op.pts[0][1]);
+            ctx.beginPath();
+            ctx.moveTo(fx, fy);
+            for (let i = 1; i < op.pts.length; i += 1) {
+              const [tx, ty] = map(op.pts[i][0], op.pts[i][1]);
+              ctx.lineTo(tx, ty);
+            }
+            ctx.closePath();
+            ctx.fill();
+          }
+        }
+      };
+
+      const buildFogLetter = () => {
+        fogLetter.innerHTML = "";
+        revealedLineCount = 0;
+        goCard3Btn.classList.remove("show");
+        letterLines.forEach((line, index) => {
+          const p = document.createElement("p");
+          p.className = "fog-line";
+          p.dataset.index = String(index);
+
+          const span = document.createElement("span");
+          span.className = "fog-line-text";
+          span.textContent = line;
+          p.appendChild(span);
+
+          p.addEventListener("click", () => {
+            if (!letter.classList.contains("open") || p.classList.contains("revealed")) {
+              return;
+            }
+            openHint.classList.remove("show");
+            p.classList.add("revealed");
+            revealedLineCount += 1;
+            if (revealedLineCount === letterLines.length) {
+              goCard3Btn.classList.add("show");
+            }
+          });
+          fogLetter.appendChild(p);
+        });
+      };
+
+      buildFogLetter();
+      drawSorryPySnoopy(snoopyCanvasStage, { fitScale: 0.9, xOffset: 0, yOffset: 0 });
+      drawSorryPySnoopy(snoopyCanvasPush, { fitScale: 0.9, xOffset: 0, yOffset: 0 });
+
+      const burstHeartsFrom = (targetEl) => {
+        const rect = targetEl.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        for (let i = 0; i < 42; i += 1) {
+          const el = document.createElement("span");
+          el.className = "heart-burst";
+          el.textContent = i % 6 === 0 ? "💖" : "💗";
+          el.style.left = `${cx}px`;
+          el.style.top = `${cy}px`;
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 80 + Math.random() * 190;
+          el.style.setProperty("--dx", `${Math.cos(angle) * dist}px`);
+          el.style.setProperty("--dy", `${Math.sin(angle) * dist}px`);
+          el.style.setProperty("--rot", `${-40 + Math.random() * 80}deg`);
+          el.style.fontSize = `${0.9 + Math.random() * 1.05}rem`;
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 950);
+        }
+      };
+
+      openLetterBtn.addEventListener("click", () => {
+        if (letter.classList.contains("open")) return;
+        letter.classList.add("open");
+        openLetterBtn.style.display = "none";
+        openHint.classList.add("show");
+      });
+
+      const card3Texts = {
+        1: "讓喵喵能相信我說的話，做的事，不需要再額外耗費巨大心力去想是不是真的和一直反覆問來確認事實。",
+        2: "說了什麼就要去實踐。主動做完了，再說，不要還沒做，就一直講。",
+        3: "好好思考規劃我們的未來。"
+      };
+
+      card3CommitBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const key = Number(btn.dataset.commit);
+          if (!Number.isFinite(key) || !card3Texts[key]) return;
+          card3Reveal.textContent = card3Texts[key];
+          card3Reveal.classList.remove("show");
+          void card3Reveal.offsetWidth;
+          card3Reveal.classList.add("show");
+
+          if (!btn.classList.contains("done")) {
+            btn.classList.add("done");
+            card3Done.add(key);
+          }
+          if (card3Done.size === 3) {
+            goCard4Btn.classList.add("show");
+          }
+        });
+      });
+
+      const careReplies = {
+        listen: "不再讓喵失望。",
+        hug: "這陣子讓喵難受了Orz",
+        quiet: "不浪費時間在不重要的事情上，花時間在喵身上。"
+      };
+      const moodReplies = {
+        1: "傷痕很大，一時半刻難以完全彌補完。趕快彌補，挽回喵。",
+        2: "謝謝喵願意跟我有接觸，不再封鎖我。",
+        3: "謝謝喵願意看到這裡。",
+        4: "This website is only 4 U",
+        5: "謝謝喵願意再次給我機會，願意再相信我一點點，讓我們可以繼續下去。"
+      };
+      const updateCard4Ready = () => {
+        if (carePicked && moodTouched) {
+          goCard5Btn.classList.add("show");
+        }
+      };
+
+      careOptionBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.care;
+          if (!key || !careReplies[key]) return;
+          careOptionBtns.forEach((it) => it.classList.remove("active"));
+          btn.classList.add("active");
+          careReply.textContent = careReplies[key];
+          carePicked = true;
+          updateCard4Ready();
+        });
+      });
+
+      moodRange.addEventListener("input", () => {
+        const v = moodRange.value;
+        moodText.textContent = moodReplies[v] || moodReplies[3];
+        moodTouched = true;
+        updateCard4Ready();
+      });
+
+      document.getElementById("btnChat").addEventListener("click", () => {
+        result.textContent = "謝謝喵願意給我機會。";
+      });
+
+      document.getElementById("btnRest").addEventListener("click", () => {
+        result.textContent = "QQQQ";
+      });
+
+      const unlockTexts = {
+        1: "希望這個不要讓喵覺得很幼稚很爛...",
+        2: "試圖透過webnair，加到喵的zoom，找到喵。但失敗，是我自己不給力，沒有每一次都參加找喵喵。怪不得人。最後還是要靠喵主動解除封鎖我...",
+        3: "Just miss you so bad..."
+      };
+
+      const unlocked = new Set();
+      unlockBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const step = Number(btn.dataset.step);
+          unlocked.add(step);
+          btn.classList.add("done");
+          unlockPanel.textContent = unlockTexts[step];
+
+          if (unlocked.size === 3) {
+            unlockProgress.innerHTML =
+              '<span class="chip">已解鎖全部 3/3</span><span class="chip">謝謝喵願意看完</span>';
+          } else {
+            unlockProgress.innerHTML = `<span class="chip">已解鎖 ${unlocked.size}/3</span>`;
+          }
+        });
+      });
+
+      const syncPreview = () => {
+        const text = noteInput ? noteInput.value.trim() : "";
+        previewNote.textContent = text
+          ? `${text}`
+          : "還沒有內容。";
+      };
+
+      if (nameInput) {
+        nameInput.addEventListener("input", syncPreview);
+      }
+      if (noteInput) {
+        noteInput.addEventListener("input", syncPreview);
+      }
+
+      saveNoteBtn.addEventListener("click", () => {
+        localStorage.setItem(
+          "apology_note",
+          JSON.stringify({
+            name: nameInput ? nameInput.value : "",
+            text: noteInput ? noteInput.value : ""
+          })
+        );
+        result.textContent = "我把這段話收好了，謝謝喵願意留下心情。";
+      });
+
+      clearNoteBtn.addEventListener("click", () => {
+        if (nameInput) {
+          nameInput.value = "";
+        }
+        if (noteInput) {
+          noteInput.value = "";
+        }
+        localStorage.removeItem("apology_note");
+        syncPreview();
+      });
+
+      let isPaused = false;
+      let speedMode = "normal";
+
+      snoopyToggle.addEventListener("click", () => {
+        isPaused = !isPaused;
+        snoopyStage.classList.toggle("paused", isPaused);
+        snoopyToggle.textContent = isPaused ? "繼續散步" : "暫停散步";
+      });
+
+      snoopySpeed.addEventListener("click", () => {
+        if (speedMode === "normal") {
+          speedMode = "fast";
+          snoopyStage.classList.add("fast");
+          snoopyStage.classList.remove("slow");
+          snoopySpeed.textContent = "切換速度：快速";
+          return;
+        }
+        if (speedMode === "fast") {
+          speedMode = "slow";
+          snoopyStage.classList.add("slow");
+          snoopyStage.classList.remove("fast");
+          snoopySpeed.textContent = "切換速度：慢速";
+          return;
+        }
+        speedMode = "normal";
+        snoopyStage.classList.remove("fast", "slow");
+        snoopySpeed.textContent = "切換速度：正常";
+      });
+
+      snoopyAvatar.addEventListener("click", () => {
+        heartPop.classList.remove("show");
+        void heartPop.offsetWidth;
+        heartPop.classList.add("show");
+      });
+
+      musicToggle.addEventListener("click", () => {
+        const isOpen = musicPanel.classList.toggle("open");
+        musicToggle.textContent = isOpen ? "🎵 收起音樂" : "🎵 開啟音樂";
+      });
+
+      const showCard = (index, smooth = true) => {
+        activeCardIndex = Math.max(0, Math.min(index, allCards.length - 1));
+        allCards.forEach((card, i) => {
+          const show = i === activeCardIndex;
+          card.style.display = show ? "block" : "none";
+          card.classList.toggle("force-show", show);
+          card.classList.toggle("visible", show);
+          card.classList.remove("push-away");
+        });
+        pushSnoopy.classList.remove("run");
+        if (smooth) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          window.scrollTo({ top: 0 });
+        }
+      };
+
+      const initCardPager = () => {
+        showCard(0, false);
+      };
+
+      const showPleaToast = (message) => {
+        pleaToast.textContent = message;
+        pleaToast.classList.add("show");
+        clearTimeout(pleaToastTimer);
+        pleaToastTimer = setTimeout(() => {
+          pleaToast.classList.remove("show");
+        }, 1800);
+      };
+
+      const startExperience = () => {
+        if (musicFrame.src === "about:blank") {
+          musicFrame.src = musicFrame.dataset.src;
+        }
+        musicPanel.classList.add("open");
+        musicToggle.textContent = "🎵 收起音樂";
+        document.body.classList.remove("locked");
+        lockScreen.setAttribute("hidden", "");
+        appShell.removeAttribute("aria-hidden");
+        initCardPager();
+      };
+
+      const tryUnlock = () => {
+        const value = passwordInput.value.trim();
+        if (value !== SITE_PASSWORD) {
+          unlockMsg.textContent = "密碼不對，再試一次看看。";
+          return;
+        }
+        unlockMsg.textContent = "";
+        sessionStorage.setItem("apology_unlocked", "true");
+        startExperience();
+      };
+
+      unlockBtn.addEventListener("click", tryUnlock);
+      passwordInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          tryUnlock();
+        }
+      });
+
+      acceptYesBtn.addEventListener("click", () => {
+        showPleaToast("謝謝喵喵願意原諒我一點點，喵喵對我最好了QQ。");
+        showCard(activeCardIndex + 1);
+      });
+      acceptNoBtn.addEventListener("click", () => {
+        noClickCount += 1;
+        if (noClickCount % 10 === 0) {
+          const milestoneMessages = [
+            "讓我好好哄喵寶嘛。",
+            "想把喵喵照顧好。",
+            "不想再讓喵喵睡不好。",
+            "想每天都陪喵喵入睡",
+            "只當喵的向日葵🌻。"
+          ];
+          const idx = Math.min(Math.floor(noClickCount / 10) - 1, milestoneMessages.length - 1);
+          showPleaToast(milestoneMessages[idx]);
+        } else {
+          showPleaToast("拜託啦～嗚嗚求求喵");
+        }
+        pushSnoopy.classList.remove("run");
+        void pushSnoopy.offsetWidth;
+        pushSnoopy.classList.add("run");
+      });
+      goCard3Btn.addEventListener("click", () => {
+        burstHeartsFrom(goCard3Btn);
+        showCard(2);
+      });
+      goCard4Btn.addEventListener("click", () => {
+        showCard(3);
+      });
+      goCard5Btn.addEventListener("click", () => {
+        showCard(4);
+      });
+
+      flowNextBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = Number(btn.dataset.next);
+          if (!Number.isFinite(target) || target < 1) return;
+          showCard(target - 1);
+        });
+      });
+
+      const stored = localStorage.getItem("apology_note");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (nameInput) {
+            nameInput.value = parsed.name || "";
+          }
+          if (noteInput) {
+            noteInput.value = parsed.text || "";
+          }
+        } catch (e) {
+          localStorage.removeItem("apology_note");
+        }
+      }
+      syncPreview();
+
+      if (sessionStorage.getItem("apology_unlocked") === "true") {
+        startExperience();
+      } else {
+        appShell.setAttribute("aria-hidden", "true");
+        setTimeout(() => passwordInput.focus(), 80);
+      }
+
+      const fallItems = ["🧸", "💗", "🐱", "🌸", "🌹", "🌻", "🌷", "🌺", "🍀", "🌼", "🌿"];
+      const doodleItems = ["🧸", "🐱", "💗", "🌸", "🌻", "🌹", "🍀", "🌿"];
+      for (let i = 0; i < 18; i++) {
+        const d = document.createElement("span");
+        d.className = "doodle";
+        d.textContent = doodleItems[Math.floor(Math.random() * doodleItems.length)];
+        d.style.left = `${4 + Math.random() * 92}%`;
+        d.style.top = `${4 + Math.random() * 90}%`;
+        d.style.fontSize = `${1.05 + Math.random() * 1.3}rem`;
+        d.style.animationDuration = `${5 + Math.random() * 6}s`;
+        d.style.animationDelay = `${Math.random() * 4}s`;
+        bgDoodles.appendChild(d);
+      }
+      for (let i = 0; i < 24; i++) {
+        const p = document.createElement("span");
+        p.className = "petal";
+        p.textContent = fallItems[Math.floor(Math.random() * fallItems.length)];
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.animationDuration = `${9 + Math.random() * 12}s`;
+        p.style.animationDelay = `${Math.random() * 8}s`;
+        p.style.opacity = `${0.35 + Math.random() * 0.45}`;
+        p.style.fontSize = `${0.9 + Math.random() * 0.65}rem`;
+        petalsHost.appendChild(p);
+      }
+    </script>
+  </body>
+</html>
