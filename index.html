@@ -479,7 +479,7 @@
       }
 
       .letter.open {
-        max-height: 500px;
+        max-height: 2200px;
       }
 
       .fog-letter {
@@ -939,8 +939,147 @@
       }
 
       @media (max-width: 640px) {
+        body {
+          overflow-x: hidden;
+        }
+
         .card {
           padding: 16px;
+          border-radius: 20px;
+        }
+
+        .page {
+          width: min(100%, 94vw);
+          margin: 16px auto 36px;
+          gap: 16px;
+        }
+
+        .lock-screen {
+          align-items: start;
+          padding-top: 32px;
+          overflow-y: auto;
+        }
+
+        .lock-card {
+          width: min(100%, 94vw);
+          padding: 18px;
+        }
+
+        .hero h1 {
+          font-size: clamp(1.6rem, 9vw, 2.3rem);
+          line-height: 1.2;
+        }
+
+        .hero p,
+        .section-title {
+          line-height: 1.5;
+        }
+
+        .sticker-row {
+          gap: 10px;
+          flex-wrap: wrap;
+          font-size: 1.25rem;
+        }
+
+        .choice-row,
+        .note-actions {
+          flex-direction: column;
+        }
+
+        .choice-btn,
+        .note-actions button,
+        .unlock-btn,
+        .care-option,
+        .card3-commit {
+          width: 100%;
+        }
+
+        .card3-commit-grid,
+        .care-grid,
+        .unlock-row {
+          grid-template-columns: 1fr;
+        }
+
+        .letter.open {
+          max-height: 3200px;
+        }
+
+        .fog-letter {
+          padding: 10px;
+        }
+
+        .fog-line {
+          line-height: 1.9;
+          padding: 6px 4px;
+        }
+
+        .story-next {
+          width: 100%;
+          max-width: 100%;
+          text-align: center;
+        }
+
+        .next-after-read.show {
+          display: block;
+        }
+
+        .care-reply,
+        .card3-reveal,
+        .unlock-panel,
+        .preview-note {
+          min-height: unset;
+        }
+
+        .mood-wrap {
+          padding: 10px;
+        }
+
+        .mood-labels {
+          font-size: 0.74rem;
+        }
+
+        .snoopy-stage {
+          min-height: 150px;
+          padding: 8px;
+        }
+
+        .snoopy-track {
+          left: -72px;
+          width: 88px;
+          bottom: 10px;
+        }
+
+        .heart-pop {
+          bottom: 60px;
+          font-size: 1rem;
+        }
+
+        .push-snoopy {
+          width: 112px;
+          top: 52vh;
+        }
+
+        .music-dock {
+          left: 12px;
+          right: 12px;
+          bottom: 12px;
+          justify-items: stretch;
+        }
+
+        .music-toggle,
+        .music-panel {
+          width: 100%;
+        }
+
+        .music-panel {
+          max-width: none;
+        }
+
+        .plea-toast {
+          width: min(92vw, 360px);
+          border-radius: 20px;
+          padding: 10px 14px;
+          text-align: center;
         }
       }
     </style>
@@ -1335,6 +1474,9 @@
             revealedLineCount += 1;
             if (revealedLineCount === letterLines.length) {
               goCard3Btn.classList.add("show");
+              requestAnimationFrame(() => {
+                goCard3Btn.scrollIntoView({ behavior: "smooth", block: "nearest" });
+              });
             }
           });
           fogLetter.appendChild(p);
