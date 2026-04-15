@@ -939,6 +939,11 @@
       }
 
       @media (max-width: 640px) {
+        html,
+        body {
+          min-height: 100vh;
+        }
+
         body {
           overflow-x: hidden;
         }
@@ -950,7 +955,7 @@
 
         .page {
           width: min(100%, 94vw);
-          margin: 16px auto 36px;
+          margin: 16px auto 24px;
           gap: 16px;
         }
 
@@ -1062,8 +1067,9 @@
         .music-dock {
           left: 12px;
           right: 12px;
-          bottom: 12px;
+          bottom: 8px;
           justify-items: stretch;
+          gap: 6px;
         }
 
         .music-toggle,
@@ -1073,6 +1079,25 @@
 
         .music-panel {
           max-width: none;
+        }
+
+        .music-toggle {
+          padding: 9px 12px;
+          font-size: 0.92rem;
+        }
+
+        .music-panel.open {
+          max-height: 170px;
+        }
+
+        body:has(#card2.force-show) #card2,
+        body:has(#card2.visible) #card2 {
+          padding-bottom: 208px;
+        }
+
+        body:has(#card2.force-show) .music-dock,
+        body:has(#card2.visible) .music-dock {
+          bottom: 4px;
         }
 
         .plea-toast {
