@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Christie 🩷</title>
     <link rel="icon" type="image/png" href="./assets/piglet.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,15 +13,19 @@
     />
     <style>
       :root {
-        --rose-1: #f3c6d2;
-        --rose-2: #e5a8bc;
-        --cream: #fff7f1;
+        --rose-1: #f7d7df;
+        --rose-2: #e5a3b8;
+        --rose-3: #c87793;
+        --cream: #fffaf6;
+        --champagne: #f4e1d1;
         --teddy-1: #e4c7aa;
-        --teddy-2: #c9a47f;
-        --sage: #cfdac8;
-        --text: #4f3e35;
-        --soft-shadow: 0 14px 30px rgba(124, 88, 67, 0.2);
-        --card-radius: 24px;
+        --teddy-2: #bb8c68;
+        --sage: #dce6d5;
+        --text: #59433f;
+        --text-soft: #876865;
+        --line: rgba(154, 108, 98, 0.14);
+        --soft-shadow: 0 22px 50px rgba(122, 84, 74, 0.16);
+        --card-radius: 30px;
       }
 
       * {
@@ -34,8 +38,70 @@
         color: var(--text);
         min-height: 100vh;
         background:
-          linear-gradient(155deg, #f8e4ea 0%, #f8e6d2 46%, #efe4d8 100%);
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.76) 0 10%, transparent 34%),
+          radial-gradient(circle at 85% 18%, rgba(255, 210, 225, 0.46) 0 12%, transparent 32%),
+          radial-gradient(circle at 18% 78%, rgba(255, 244, 213, 0.55) 0 10%, transparent 28%),
+          linear-gradient(145deg, #f9e6ec 0%, #fff0e2 42%, #f4ece4 100%);
         overflow-x: hidden;
+        position: relative;
+      }
+
+      body.dark {
+        --cream: #171312;
+        --champagne: #2f2023;
+        --text: #f9ece6;
+        --text-soft: #d9b9b4;
+        --line: rgba(255, 226, 213, 0.12);
+        --soft-shadow: 0 26px 58px rgba(7, 3, 5, 0.5);
+        background:
+          radial-gradient(circle at 18% 18%, rgba(255, 236, 245, 0.08) 0 2%, transparent 18%),
+          radial-gradient(circle at 82% 14%, rgba(206, 92, 133, 0.22) 0 10%, transparent 30%),
+          radial-gradient(circle at 18% 78%, rgba(182, 106, 136, 0.12) 0 8%, transparent 24%),
+          radial-gradient(circle at 76% 72%, rgba(118, 72, 120, 0.14) 0 10%, transparent 26%),
+          linear-gradient(145deg, #120d11 0%, #1a1118 32%, #23131a 58%, #140d12 100%);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(120deg, rgba(255, 255, 255, 0.34), transparent 28%, transparent 72%, rgba(255, 255, 255, 0.2)),
+          repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 18px);
+        opacity: 0.65;
+        z-index: 0;
+      }
+
+      body.dark::before {
+        background:
+          linear-gradient(120deg, rgba(255, 255, 255, 0.05), transparent 26%, transparent 72%, rgba(255, 255, 255, 0.02)),
+          radial-gradient(circle at 20% 24%, rgba(255, 210, 226, 0.08), transparent 16%),
+          radial-gradient(circle at 80% 18%, rgba(255, 193, 214, 0.05), transparent 14%);
+        opacity: 0.92;
+      }
+
+      body.dark::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background:
+          radial-gradient(circle at 8% 12%, rgba(255, 255, 255, 0.9) 0 1px, transparent 1.6px),
+          radial-gradient(circle at 18% 32%, rgba(255, 236, 242, 0.8) 0 1px, transparent 1.8px),
+          radial-gradient(circle at 32% 18%, rgba(255, 255, 255, 0.72) 0 1.1px, transparent 1.9px),
+          radial-gradient(circle at 44% 40%, rgba(255, 229, 237, 0.62) 0 1px, transparent 1.8px),
+          radial-gradient(circle at 58% 14%, rgba(255, 255, 255, 0.84) 0 1.2px, transparent 2px),
+          radial-gradient(circle at 72% 28%, rgba(255, 234, 240, 0.7) 0 1px, transparent 1.8px),
+          radial-gradient(circle at 84% 16%, rgba(255, 255, 255, 0.75) 0 1.1px, transparent 2px),
+          radial-gradient(circle at 90% 42%, rgba(255, 236, 244, 0.7) 0 1px, transparent 1.8px),
+          radial-gradient(circle at 14% 72%, rgba(255, 255, 255, 0.78) 0 1.1px, transparent 2px),
+          radial-gradient(circle at 28% 62%, rgba(255, 232, 240, 0.65) 0 1px, transparent 1.8px),
+          radial-gradient(circle at 48% 82%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.8px),
+          radial-gradient(circle at 66% 72%, rgba(255, 226, 239, 0.62) 0 1.1px, transparent 2px),
+          radial-gradient(circle at 82% 86%, rgba(255, 255, 255, 0.8) 0 1px, transparent 1.9px);
+        opacity: 0.6;
       }
 
       body.locked {
@@ -51,8 +117,8 @@
 
       .doodle {
         position: absolute;
-        opacity: 0.16;
-        filter: drop-shadow(0 2px 3px rgba(98, 74, 60, 0.16));
+        opacity: 0.12;
+        filter: drop-shadow(0 8px 12px rgba(98, 74, 60, 0.1));
         animation: doodleBob ease-in-out infinite;
       }
 
@@ -94,25 +160,35 @@
 
       .lock-card {
         width: min(460px, 94vw);
-        border-radius: 24px;
-        border: 2px solid rgba(255, 247, 239, 0.95);
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.9);
         background:
-          radial-gradient(8px 8px at 14% 18%, rgba(231, 169, 188, 0.24) 0 99%, transparent 100%),
-          radial-gradient(8px 8px at 82% 24%, rgba(201, 164, 127, 0.2) 0 99%, transparent 100%),
-          radial-gradient(6px 6px at 74% 78%, rgba(231, 169, 188, 0.18) 0 99%, transparent 100%),
-          radial-gradient(6px 6px at 22% 72%, rgba(201, 164, 127, 0.16) 0 99%, transparent 100%),
-          rgba(255, 249, 244, 0.9);
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.82) 0 18%, transparent 46%),
+          radial-gradient(circle at 82% 18%, rgba(245, 196, 212, 0.3) 0 10%, transparent 34%),
+          linear-gradient(160deg, rgba(255, 255, 255, 0.9), rgba(255, 248, 245, 0.74));
         box-shadow: var(--soft-shadow);
-        backdrop-filter: blur(3px);
-        padding: 22px;
+        backdrop-filter: blur(14px);
+        padding: 24px;
         text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .lock-card::before {
+        content: "";
+        position: absolute;
+        inset: 10px;
+        border-radius: 22px;
+        border: 1px solid rgba(220, 171, 185, 0.26);
+        pointer-events: none;
       }
 
       .lock-title {
         margin: 4px 0 6px;
         font-family: "Patrick Hand", cursive;
-        font-size: clamp(1.8rem, 6vw, 2.7rem);
-        color: #9d5d7b;
+        font-size: clamp(1.8rem, 6vw, 3rem);
+        color: #a05d78;
+        letter-spacing: 0.03em;
       }
 
       .lock-form {
@@ -123,23 +199,25 @@
 
       .lock-input {
         width: 100%;
-        border: 1px solid #d9bda5;
+        border: 1px solid rgba(187, 140, 104, 0.28);
         border-radius: 999px;
-        padding: 11px 14px;
+        padding: 12px 16px;
         text-align: center;
         font: inherit;
         color: var(--text);
-        background: #fffdfb;
+        background: rgba(255, 255, 255, 0.76);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
       }
 
       .lock-btn {
         border: none;
         border-radius: 999px;
-        background: linear-gradient(180deg, #d391a9, #bb7e92);
+        background: linear-gradient(180deg, #d58ca8, #ba6f8d);
         color: white;
         font: inherit;
-        padding: 11px 16px;
+        padding: 12px 16px;
         cursor: pointer;
+        box-shadow: 0 14px 24px rgba(194, 120, 146, 0.26);
       }
 
       .lock-msg {
@@ -178,22 +256,171 @@
       .page {
         position: relative;
         z-index: 1;
-        width: min(960px, 92vw);
-        margin: 24px auto 48px;
+        width: min(960px, 91vw);
+        margin: 28px auto 52px;
         display: grid;
-        gap: 20px;
+        gap: 24px;
       }
 
       .card {
-        background: rgba(255, 251, 247, 0.84);
-        border: 2px solid rgba(255, 244, 236, 0.95);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(255, 250, 247, 0.92)),
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 38%);
+        border: 1px solid rgba(255, 255, 255, 0.84);
         border-radius: var(--card-radius);
         box-shadow: var(--soft-shadow);
-        backdrop-filter: blur(2px);
-        padding: 22px;
+        backdrop-filter: blur(16px);
+        padding: 24px;
         opacity: 0;
         transform: translateY(22px) scale(0.985);
         transition: opacity 520ms ease, transform 520ms ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      body.dark .card {
+        background:
+          linear-gradient(180deg, rgba(47, 28, 34, 0.92), rgba(24, 18, 24, 0.96)),
+          radial-gradient(circle at top left, rgba(255, 214, 229, 0.08), transparent 36%),
+          radial-gradient(circle at 88% 12%, rgba(193, 97, 135, 0.08), transparent 28%);
+        border-color: rgba(255, 230, 222, 0.1);
+      }
+
+      body.dark .card::before {
+        background:
+          linear-gradient(135deg, rgba(255, 218, 231, 0.08), transparent 24%, transparent 74%, rgba(255, 255, 255, 0.03)),
+          linear-gradient(180deg, rgba(255, 206, 225, 0.06), transparent 36%);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.5), transparent 25%, transparent 72%, rgba(255, 255, 255, 0.24)),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.32), transparent 36%);
+        pointer-events: none;
+      }
+
+      .card::after {
+        content: "";
+        position: absolute;
+        inset: 10px;
+        border-radius: calc(var(--card-radius) - 10px);
+        border: 1px solid var(--line);
+        pointer-events: none;
+      }
+
+      body.dark .lock-card {
+        border-color: rgba(255, 230, 222, 0.1);
+        background:
+          radial-gradient(circle at top left, rgba(255, 241, 247, 0.08) 0 18%, transparent 46%),
+          radial-gradient(circle at 82% 18%, rgba(185, 88, 122, 0.2) 0 10%, transparent 34%),
+          linear-gradient(160deg, rgba(59, 34, 42, 0.94), rgba(24, 18, 24, 0.94));
+      }
+
+      body.dark .lock-card::before {
+        border-color: rgba(245, 185, 206, 0.12);
+      }
+
+      body.dark .lock-title,
+      body.dark .hero h1 {
+        color: #f0b3c6;
+      }
+
+      body.dark .hero,
+      body.dark .fog-letter,
+      body.dark .card3-reveal,
+      body.dark .care-reply,
+      body.dark .heart-response,
+      body.dark .unlock-panel,
+      body.dark .mood-wrap,
+      body.dark .preview-note,
+      body.dark .note-box input,
+      body.dark .note-box textarea {
+        background:
+          linear-gradient(180deg, rgba(44, 32, 34, 0.94), rgba(31, 24, 25, 0.92));
+        border-color: rgba(248, 185, 208, 0.18);
+        color: var(--text);
+      }
+
+      body.dark .card3-commit,
+      body.dark .care-option,
+      body.dark .heart-option,
+      body.dark .unlock-btn,
+      body.dark .choice-no,
+      body.dark .btn-clear {
+        background: linear-gradient(180deg, rgba(54, 40, 42, 0.94), rgba(38, 29, 30, 0.92));
+        border-color: rgba(248, 185, 208, 0.16);
+        color: var(--text);
+      }
+
+      body.dark .card3-commit.done,
+      body.dark .care-option.active,
+      body.dark .heart-option.active,
+      body.dark .unlock-btn.done {
+        background: linear-gradient(120deg, rgba(86, 48, 63, 0.96), rgba(63, 72, 42, 0.88));
+        border-color: rgba(247, 164, 199, 0.3);
+      }
+
+      body.dark .lock-input {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 220, 201, 0.16);
+        color: var(--text);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      body.dark .music-panel {
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.3);
+      }
+
+      body.dark .music-toggle,
+      body.dark .lock-btn,
+      body.dark .story-next,
+      body.dark .choice-yes,
+      body.dark .btn-save,
+      body.dark .btn-chat {
+        background: linear-gradient(180deg, #d17b9d, #a95273);
+        box-shadow: 0 14px 30px rgba(121, 43, 73, 0.34);
+      }
+
+      body.dark .petal {
+        filter: drop-shadow(0 4px 8px rgba(255, 196, 220, 0.14));
+      }
+
+      body.dark .doodle {
+        opacity: 0.08;
+        filter: drop-shadow(0 8px 12px rgba(255, 215, 228, 0.08));
+      }
+
+      body.dark .theme-toggle {
+        background: linear-gradient(180deg, rgba(52, 30, 37, 0.9), rgba(33, 22, 28, 0.88));
+      }
+
+      .theme-dock {
+        position: fixed;
+        right: 14px;
+        top: 14px;
+        z-index: 16;
+      }
+
+      .theme-toggle {
+        border: 1px solid rgba(255, 255, 255, 0.62);
+        border-radius: 999px;
+        padding: 10px 14px;
+        font: inherit;
+        background: rgba(255, 255, 255, 0.7);
+        color: var(--text);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 12px 28px rgba(124, 88, 67, 0.14);
+        cursor: pointer;
+      }
+
+      body.dark .theme-toggle {
+        background: rgba(43, 31, 33, 0.82);
+        border-color: rgba(255, 228, 220, 0.12);
+        color: var(--text);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
       }
 
       .card.visible {
@@ -211,12 +438,21 @@
         margin-top: 14px;
         border: none;
         border-radius: 999px;
-        background: linear-gradient(180deg, #c78f76, #ad755e);
+        background: linear-gradient(180deg, #d28a74, #b66d5b);
         color: #fff;
         font: inherit;
-        padding: 11px 18px;
+        padding: 12px 20px;
         cursor: pointer;
-        box-shadow: 0 8px 20px rgba(130, 88, 66, 0.25);
+        box-shadow: 0 14px 30px rgba(170, 101, 82, 0.24);
+        transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+      }
+
+      .story-next:hover,
+      .choice-btn:hover,
+      .music-toggle:hover,
+      .lock-btn:hover {
+        transform: translateY(-2px);
+        filter: saturate(1.03);
       }
 
       .flow-next {
@@ -253,18 +489,19 @@
       .choice-btn {
         border: none;
         border-radius: 999px;
-        padding: 10px 20px;
+        padding: 11px 20px;
         font: inherit;
         cursor: pointer;
+        box-shadow: 0 10px 20px rgba(124, 88, 67, 0.12);
       }
 
       .choice-yes {
-        background: linear-gradient(180deg, #c78f76, #ad755e);
+        background: linear-gradient(180deg, #d28a74, #b66d5b);
         color: #fff;
       }
 
       .choice-no {
-        background: #f1e7dd;
+        background: linear-gradient(180deg, #fbf4ee, #f1e3d6);
         color: #7d5f4d;
       }
 
@@ -281,8 +518,8 @@
         bottom: 30px;
         transform: translateX(-50%) translateY(16px);
         z-index: 40;
-        background: rgba(255, 250, 246, 0.96);
-        border: 1px solid #e0c3aa;
+        background: rgba(255, 251, 248, 0.97);
+        border: 1px solid rgba(190, 143, 125, 0.24);
         color: #7a5a48;
         border-radius: 999px;
         padding: 10px 16px;
@@ -372,26 +609,47 @@
         text-align: center;
         position: relative;
         overflow: hidden;
+        padding-top: 30px;
+        padding-bottom: 28px;
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.78) 0 16%, transparent 44%),
+          radial-gradient(circle at 86% 18%, rgba(255, 219, 230, 0.66) 0 13%, transparent 32%),
+          linear-gradient(160deg, rgba(255, 248, 244, 0.96), rgba(255, 237, 228, 0.88));
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        right: -44px;
+        top: -46px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(243, 184, 204, 0.4), rgba(243, 184, 204, 0.02) 72%);
+        pointer-events: none;
       }
 
       .hero h1 {
-        margin: 6px 0 4px;
+        margin: 8px 0 6px;
         font-family: "Patrick Hand", cursive;
         font-size: clamp(2rem, 7vw, 3.5rem);
-        letter-spacing: 0.02em;
+        line-height: 1.1;
+        letter-spacing: 0.03em;
         color: #9b6178;
+        text-shadow: 0 8px 26px rgba(201, 128, 155, 0.12);
       }
 
       .hero p {
         margin: 0;
-        font-size: 1rem;
+        font-size: 1.02rem;
+        color: var(--text-soft);
       }
 
       .sticker-row {
         display: flex;
         justify-content: center;
         gap: 14px;
-        margin-top: 10px;
+        margin-top: 14px;
         font-size: 1.4rem;
       }
 
@@ -402,12 +660,12 @@
       .envelope button {
         border: none;
         border-radius: 999px;
-        background: linear-gradient(180deg, #d89cb2, #bb7f93);
+        background: linear-gradient(180deg, #da95af, #bf6d8c);
         color: white;
         font: inherit;
         padding: 12px 22px;
         cursor: pointer;
-        box-shadow: 0 8px 20px rgba(154, 101, 121, 0.28);
+        box-shadow: 0 14px 28px rgba(184, 105, 132, 0.24);
       }
 
       .card3-commit-grid {
@@ -418,15 +676,16 @@
       }
 
       .card3-commit {
-        border: 1px solid #ffd9ea;
-        border-radius: 16px;
-        background: #fff;
-        color: #7a5765;
+        border: 1px solid rgba(226, 165, 188, 0.34);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 244, 248, 0.9));
+        color: #73525f;
         text-align: left;
         font: inherit;
-        padding: 12px;
+        padding: 14px;
         cursor: pointer;
-        transition: transform 120ms ease, background 220ms ease, border-color 220ms ease;
+        transition: transform 120ms ease, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+        box-shadow: 0 12px 22px rgba(181, 126, 145, 0.08);
       }
 
       .card3-commit:hover {
@@ -434,17 +693,18 @@
       }
 
       .card3-commit.done {
-        background: linear-gradient(120deg, #ffeef6, #f3fde8);
-        border-color: #f4a7ca;
+        background: linear-gradient(120deg, #fff0f6, #f5fce9);
+        border-color: #eba6c5;
+        box-shadow: 0 14px 28px rgba(189, 118, 146, 0.13);
       }
 
       .card3-reveal {
         display: none;
         margin-top: 10px;
-        border: 1px dashed #f6a8ca;
-        border-radius: 14px;
-        background: #fff8fc;
-        padding: 11px 12px;
+        border: 1px dashed rgba(225, 154, 188, 0.72);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 248, 252, 0.96), rgba(255, 243, 248, 0.92));
+        padding: 13px 14px;
         line-height: 1.7;
       }
 
@@ -483,10 +743,11 @@
       }
 
       .fog-letter {
-        border: 1px dashed #f7a7ca;
-        border-radius: 14px;
-        background: rgba(255, 249, 253, 0.9);
-        padding: 12px;
+        border: 1px dashed rgba(240, 154, 194, 0.78);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 251, 253, 0.94), rgba(255, 244, 248, 0.92));
+        padding: 14px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.74);
       }
 
       .open-hint {
@@ -561,9 +822,10 @@
       }
 
       .section-title {
-        margin: 0 0 10px;
-        font-size: 1.2rem;
+        margin: 0 0 12px;
+        font-size: 1.25rem;
         color: #8f5b48;
+        letter-spacing: 0.02em;
       }
 
       .timeline {
@@ -598,15 +860,16 @@
       }
 
       .care-option {
-        border: 1px solid #ffe0ee;
-        border-radius: 16px;
-        background: #fff;
-        padding: 12px;
+        border: 1px solid rgba(226, 178, 194, 0.34);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 244, 248, 0.88));
+        padding: 14px;
         text-align: left;
         color: #7a5967;
         font: inherit;
         cursor: pointer;
-        transition: transform 120ms ease, background 220ms ease, border-color 220ms ease;
+        transition: transform 120ms ease, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+        box-shadow: 0 12px 22px rgba(189, 138, 156, 0.08);
       }
 
       .care-option:hover {
@@ -614,26 +877,27 @@
       }
 
       .care-option.active {
-        background: linear-gradient(120deg, #ffe9f3, #f6fde9);
-        border-color: #f2a3c6;
+        background: linear-gradient(120deg, #fff0f6, #f8fde9);
+        border-color: #eea8c8;
+        box-shadow: 0 14px 30px rgba(190, 127, 151, 0.12);
       }
 
       .care-reply {
         margin-top: 10px;
-        border: 1px dashed #f6a8ca;
-        border-radius: 14px;
-        background: #fff8fc;
-        padding: 11px 12px;
+        border: 1px dashed rgba(232, 163, 193, 0.72);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 248, 252, 0.96), rgba(255, 243, 248, 0.92));
+        padding: 13px 14px;
         min-height: 74px;
         line-height: 1.7;
       }
 
       .mood-wrap {
         margin-top: 12px;
-        border: 1px solid #ffe5f0;
-        border-radius: 14px;
-        background: rgba(255, 253, 251, 0.9);
-        padding: 10px 12px;
+        border: 1px solid rgba(235, 207, 221, 0.72);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 254, 252, 0.94), rgba(255, 248, 245, 0.88));
+        padding: 12px 14px;
       }
 
       .mood-wrap input[type="range"] {
@@ -658,6 +922,60 @@
         gap: 10px;
       }
 
+      .heart-card {
+        display: grid;
+        gap: 12px;
+      }
+
+      .heart-lead {
+        margin: 0;
+        color: var(--text-soft);
+        line-height: 1.8;
+      }
+
+      .heart-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .heart-option {
+        border: 1px solid rgba(226, 178, 194, 0.34);
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 244, 248, 0.88));
+        padding: 14px;
+        text-align: left;
+        color: #7a5967;
+        font: inherit;
+        cursor: pointer;
+        transition: transform 120ms ease, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+        box-shadow: 0 12px 22px rgba(189, 138, 156, 0.08);
+      }
+
+      .heart-option:hover {
+        transform: translateY(-2px);
+      }
+
+      .heart-option.active {
+        background: linear-gradient(120deg, #fff0f6, #f8fde9);
+        border-color: #eea8c8;
+        box-shadow: 0 14px 30px rgba(190, 127, 151, 0.12);
+      }
+
+      .heart-response {
+        border: 1px dashed rgba(230, 158, 191, 0.74);
+        border-radius: 18px;
+        padding: 14px;
+        background: linear-gradient(180deg, rgba(255, 248, 252, 0.96), rgba(255, 243, 248, 0.92));
+        line-height: 1.8;
+        min-height: 112px;
+      }
+
+      .heart-note {
+        display: grid;
+        gap: 10px;
+      }
+
       .actions button {
         border: none;
         border-radius: 14px;
@@ -678,24 +996,25 @@
       }
 
       .unlock-btn {
-        border: 1px solid #ffd3e8;
-        border-radius: 14px;
-        background: #fff;
-        padding: 10px;
+        border: 1px solid rgba(233, 181, 202, 0.38);
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 245, 249, 0.88));
+        padding: 12px;
         cursor: pointer;
         font: inherit;
+        box-shadow: 0 10px 20px rgba(178, 126, 143, 0.08);
       }
 
       .unlock-btn.done {
-        background: #ffeef6;
+        background: linear-gradient(180deg, #fff0f7, #fff8fb);
         border-color: #ff9ac4;
       }
 
       .unlock-panel {
-        border: 1px dashed #f6a8ca;
-        border-radius: 14px;
-        padding: 10px 12px;
-        background: #fff8fc;
+        border: 1px dashed rgba(230, 158, 191, 0.74);
+        border-radius: 18px;
+        padding: 13px 14px;
+        background: linear-gradient(180deg, rgba(255, 248, 252, 0.96), rgba(255, 243, 248, 0.92));
         min-height: 74px;
       }
 
@@ -718,12 +1037,13 @@
       .note-box input,
       .note-box textarea {
         width: 100%;
-        border: 1px solid #ffd3e8;
-        border-radius: 12px;
-        padding: 10px;
+        border: 1px solid rgba(236, 183, 204, 0.5);
+        border-radius: 16px;
+        padding: 12px;
         font: inherit;
         color: var(--text);
-        background: #fff;
+        background: rgba(255, 255, 255, 0.84);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
       }
 
       .note-box textarea {
@@ -745,33 +1065,34 @@
       }
 
       .btn-save {
-        background: #ff8fbb;
+        background: linear-gradient(180deg, #ff9bc1, #ea7fa8);
         color: white;
+        box-shadow: 0 10px 22px rgba(223, 126, 170, 0.22);
       }
 
       .btn-clear {
-        background: #f1f6e8;
+        background: linear-gradient(180deg, #f7f8ef, #ecf0df);
         color: #50714c;
       }
 
       .preview-note {
-        border: 1px solid #ffe0ef;
-        border-radius: 12px;
-        background: #fff;
-        padding: 10px;
+        border: 1px solid rgba(234, 191, 208, 0.46);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.86);
+        padding: 12px;
         min-height: 56px;
       }
 
       .snoopy-stage {
         position: relative;
         overflow: hidden;
-        border-radius: 18px;
-        border: 1px solid #ffd7e9;
+        border-radius: 22px;
+        border: 1px solid rgba(237, 194, 213, 0.44);
         background:
-          radial-gradient(circle at 15% 20%, #fff6fa 0 30%, transparent 31%),
-          linear-gradient(180deg, #fff4df 0%, #f1ffea 100%);
+          radial-gradient(circle at 15% 20%, rgba(255, 246, 250, 0.95) 0 30%, transparent 31%),
+          linear-gradient(180deg, #fff4df 0%, #f7fff2 100%);
         min-height: 170px;
-        padding: 10px;
+        padding: 12px;
       }
 
       .snoopy-track {
@@ -910,11 +1231,11 @@
       .music-toggle {
         border: none;
         border-radius: 999px;
-        padding: 10px 14px;
+        padding: 11px 15px;
         font: inherit;
         color: #fff;
-        background: linear-gradient(180deg, #c78f76, #ad755e);
-        box-shadow: 0 10px 24px rgba(145, 98, 77, 0.35);
+        background: linear-gradient(180deg, #d28a74, #b66d5b);
+        box-shadow: 0 14px 30px rgba(163, 104, 82, 0.28);
         cursor: pointer;
       }
 
@@ -925,6 +1246,8 @@
         opacity: 0;
         transform: translateY(8px);
         transition: max-height 260ms ease, opacity 220ms ease, transform 220ms ease;
+        border-radius: 18px;
+        box-shadow: 0 18px 36px rgba(136, 92, 78, 0.16);
       }
 
       .music-panel.open {
@@ -941,11 +1264,12 @@
       @media (max-width: 640px) {
         html,
         body {
-          min-height: 100vh;
+          min-height: 100%;
         }
 
         body {
           overflow-x: hidden;
+          min-height: 100svh;
         }
 
         .card {
@@ -954,14 +1278,46 @@
         }
 
         .page {
-          width: min(100%, 94vw);
-          margin: 16px auto 24px;
+          width: min(100%, 92vw);
+          margin: max(12px, env(safe-area-inset-top)) auto calc(18px + env(safe-area-inset-bottom));
           gap: 16px;
+        }
+
+        .card.force-show,
+        .card.visible {
+          min-height: calc(100svh - 76px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        }
+
+        #card1.force-show,
+        #card3.force-show,
+        #card4.force-show,
+        #card9.force-show,
+        #card1.visible,
+        #card3.visible,
+        #card4.visible,
+        #card9.visible {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        #card2.force-show,
+        #card5.force-show,
+        #card6.force-show,
+        #card7.force-show,
+        #card8.force-show,
+        #card2.visible,
+        #card5.visible,
+        #card6.visible,
+        #card7.visible,
+        #card8.visible {
+          display: block;
         }
 
         .lock-screen {
           align-items: start;
-          padding-top: 32px;
+          padding-top: calc(24px + env(safe-area-inset-top));
+          padding-bottom: calc(20px + env(safe-area-inset-bottom));
           overflow-y: auto;
         }
 
@@ -995,13 +1351,18 @@
         .note-actions button,
         .unlock-btn,
         .care-option,
-        .card3-commit {
+        .card3-commit,
+        .heart-option,
+        .music-toggle,
+        .lock-btn {
           width: 100%;
+          min-height: 46px;
         }
 
         .card3-commit-grid,
         .care-grid,
-        .unlock-row {
+        .unlock-row,
+        .heart-grid {
           grid-template-columns: 1fr;
         }
 
@@ -1022,6 +1383,7 @@
           width: 100%;
           max-width: 100%;
           text-align: center;
+          min-height: 48px;
         }
 
         .next-after-read.show {
@@ -1030,9 +1392,26 @@
 
         .care-reply,
         .card3-reveal,
+        .heart-response,
         .unlock-panel,
         .preview-note {
           min-height: unset;
+        }
+
+        .heart-card {
+          gap: 10px;
+        }
+
+        .heart-lead {
+          line-height: 1.75;
+        }
+
+        .heart-note textarea {
+          min-height: 124px;
+        }
+
+        .heart-note .preview-note {
+          min-height: 72px;
         }
 
         .mood-wrap {
@@ -1067,9 +1446,20 @@
         .music-dock {
           left: 12px;
           right: 12px;
-          bottom: 8px;
+          bottom: calc(8px + env(safe-area-inset-bottom));
           justify-items: stretch;
           gap: 6px;
+        }
+
+        .theme-dock {
+          right: 12px;
+          top: calc(10px + env(safe-area-inset-top));
+        }
+
+        .theme-toggle {
+          min-height: 42px;
+          padding: 8px 12px;
+          font-size: 0.9rem;
         }
 
         .music-toggle,
@@ -1092,11 +1482,22 @@
 
         body:has(#card2.force-show) #card2,
         body:has(#card2.visible) #card2 {
-          padding-bottom: 208px;
+          padding-bottom: calc(190px + env(safe-area-inset-bottom));
+        }
+
+        body:has(#card7.force-show) #card7,
+        body:has(#card7.visible) #card7,
+        body:has(#card8.force-show) #card8,
+        body:has(#card8.visible) #card8 {
+          padding-bottom: calc(190px + env(safe-area-inset-bottom));
         }
 
         body:has(#card2.force-show) .music-dock,
-        body:has(#card2.visible) .music-dock {
+        body:has(#card2.visible) .music-dock,
+        body:has(#card7.force-show) .music-dock,
+        body:has(#card7.visible) .music-dock,
+        body:has(#card8.force-show) .music-dock,
+        body:has(#card8.visible) .music-dock {
           bottom: 4px;
         }
 
@@ -1105,6 +1506,61 @@
           border-radius: 20px;
           padding: 10px 14px;
           text-align: center;
+        }
+      }
+
+      @media (max-width: 430px) {
+        .card {
+          padding: 14px;
+        }
+
+        .hero h1 {
+          font-size: clamp(1.48rem, 8.2vw, 2.05rem);
+        }
+
+        .lock-title {
+          font-size: clamp(1.7rem, 7vw, 2.4rem);
+        }
+
+        .section-title {
+          font-size: 1.08rem;
+        }
+
+        .tiny {
+          font-size: 0.79rem;
+        }
+
+        .heart-response,
+        .heart-note textarea,
+        .heart-note .preview-note {
+          padding: 12px;
+        }
+
+        .sticker-row {
+          gap: 8px;
+          font-size: 1.15rem;
+        }
+
+        .music-toggle {
+          padding: 8px 12px;
+          font-size: 0.88rem;
+        }
+
+        .music-panel.open {
+          max-height: 160px;
+        }
+
+        .fog-line {
+          line-height: 1.8;
+        }
+
+        .snoopy-stage {
+          min-height: 138px;
+        }
+
+        .snoopy-track {
+          width: 78px;
+          left: -60px;
         }
       }
     </style>
@@ -1160,7 +1616,7 @@
       </section>
 
       <section class="card" id="card3">
-        <h2 class="section-title">最優先積極做到的基本三件事</h2>
+        <h2 class="section-title">優先和積極做到的基本三件事</h2>
         <div class="card3-commit-grid" id="card3CommitGrid">
           <button class="card3-commit" type="button" data-commit="1">🧸 重新建立喵對我的信任安全感</button>
           <button class="card3-commit" type="button" data-commit="2">🌷 說到做到</button>
@@ -1173,7 +1629,7 @@
       <section class="card" id="card4">
         <h2 class="section-title">喵喵希望我現在做什麼</h2>
         <div class="care-grid" id="careGrid">
-          <button class="care-option" type="button" data-care="listen">👂 好好確實做到</button>
+          <button class="care-option" type="button" data-care="listen">👂 確實做到</button>
           <button class="care-option" type="button" data-care="hug">🫶 好好抱喵</button>
           <button class="care-option" type="button" data-care="quiet">🌙 陪伴喵喵入睡</button>
         </div>
@@ -1226,16 +1682,42 @@
           <button class="btn-clear" type="button" id="clearNote">清空</button>
         </div>
         <div class="preview-note" id="previewNote">還沒有內容</div>
-        <button class="story-next flow-next" type="button" data-next="8">把最後的話看完</button>
+        <p class="result" id="noteResult"></p>
+        <button class="story-next flow-next" type="button" data-next="8">把我後面真正想說的看完</button>
       </section>
 
-      <section class="card actions" id="card8">
+      <section class="card heart-card" id="card8">
+        <h2 class="section-title">7) 如果喵願意，行行好指點我一下下嘛～拜託</h2>
+        <p class="heart-lead">我依然會努力自己尋找答案，只是如果喵願意提點，我會更知道該怎麼做能讓喵在跨過那條線的時候，能不再恐懼、害怕。在喵無法跨越的情況下，更能安撫喵，陪著喵，牽著喵一起慢慢跨過。我也能更對症下藥更好地去彌補我的過錯。</p>
+        <div class="heart-grid" id="heartGrid">
+          <button class="heart-option" type="button" data-heart="1">我該怎麼在遠距的情況下更好地陪伴喵</button>
+          <button class="heart-option" type="button" data-heart="2">喵現在最需要我什麼，拜託講幾個，剩下我會舉一反三</button>
+          <button class="heart-option" type="button" data-heart="3">我們的短期目標</button>
+        </div>
+        <div class="heart-response" id="heartResponse">喵寶點一個看啦～</div>
+        <div class="heart-note">
+          <textarea id="heartNoteInput" maxlength="220" placeholder="如果喵願意，也可以直接留言告訴我，妳希望我怎麼做、怎麼陪、怎麼改..."></textarea>
+          <div class="note-actions">
+            <button class="btn-save" type="button" id="saveHeartNote">把這段話留給我</button>
+            <button class="btn-clear" type="button" id="clearHeartNote">清空</button>
+          </div>
+          <div class="preview-note" id="heartPreviewNote">還沒有內容</div>
+          <p class="result" id="heartResult"></p>
+        </div>
+        <button class="story-next flow-next" type="button" data-next="9">把最後的話看完</button>
+      </section>
+
+      <section class="card actions" id="card9">
         <h2 class="section-title">7) 喵願意稍微原諒我，給我們機會嗎</h2>
         <button class="btn-chat" id="btnChat">願意</button>
         <button class="btn-rest" id="btnRest">再看看我表現</button>
         <p class="result" id="result"></p>
       </section>
     </main>
+
+    <div class="theme-dock">
+      <button class="theme-toggle" id="themeToggle" type="button">🌙 夜間</button>
+    </div>
 
     <div class="music-dock">
       <button class="music-toggle" id="musicToggle">🎵 開啟音樂</button>
@@ -1279,6 +1761,14 @@
       const moodRange = document.getElementById("moodRange");
       const moodText = document.getElementById("moodText");
       const goCard5Btn = document.getElementById("goCard5");
+      const heartOptionBtns = [...document.querySelectorAll(".heart-option")];
+      const heartResponse = document.getElementById("heartResponse");
+      const heartNoteInput = document.getElementById("heartNoteInput");
+      const heartPreviewNote = document.getElementById("heartPreviewNote");
+      const saveHeartNoteBtn = document.getElementById("saveHeartNote");
+      const clearHeartNoteBtn = document.getElementById("clearHeartNote");
+      const noteResult = document.getElementById("noteResult");
+      const heartResult = document.getElementById("heartResult");
       const result = document.getElementById("result");
       const bgDoodles = document.getElementById("bgDoodles");
       const petalsHost = document.getElementById("petals");
@@ -1298,6 +1788,7 @@
       const musicToggle = document.getElementById("musicToggle");
       const musicPanel = document.getElementById("musicPanel");
       const musicFrame = document.getElementById("musicFrame");
+      const themeToggle = document.getElementById("themeToggle");
       const fogLetter = document.getElementById("fogLetter");
       const openHint = document.getElementById("openHint");
       const goCard3Btn = document.getElementById("goCard3");
@@ -1315,9 +1806,9 @@
       const letterLines = [
         "之前我不成熟的所作所為，不僅讓喵很受傷，也阻礙了我們之間的關係。",
         "同樣的錯，一直反覆犯。不珍惜喵給的機會，反而又造成更嚴重的傷害。",
-        "這不是對待一個心愛之人該有的樣子與行為。",
+        "這不是對待一個心愛之人該有的樣子和行為。",
         "喵只是單純的要我做到最基本的：誠實、言而有信。犯錯了，沒關係，知道哪裡錯，好好跟喵道歉補償，下次別再犯。",
-        "然後好好理解和好好聽喵，而不是急著解釋、反駁。",
+        "然後好好理解和聽喵說話，而不是急著解釋、反駁。",
         "我弄出來的洞很大，很難一時半刻間彌補完，但我想如果堅持的話，有天也會像愚公一樣。",
         "更何況這些是為了我愛的人",
         "喵喵，對不起",
@@ -1329,6 +1820,20 @@
       let activeCardIndex = 0;
       let noClickCount = 0;
       let pleaToastTimer;
+      const THEME_STORAGE_KEY = "apology_theme";
+
+      const applyTheme = (theme) => {
+        document.body.classList.toggle("dark", theme === "dark");
+        themeToggle.textContent = theme === "dark" ? "☀️ 亮色" : "🌙 夜間";
+      };
+
+      const getInitialTheme = () => {
+        const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        if (storedTheme === "light" || storedTheme === "dark") {
+          return storedTheme;
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      };
 
       const drawSorryPySnoopy = (canvas, cfg = {}) => {
         const ctx = canvas.getContext("2d");
@@ -1577,6 +2082,11 @@
         4: "This website is only 4 U",
         5: "謝謝喵願意再次給我機會，願意再相信我一點點，讓我們可以繼續下去。"
       };
+      const heartReplies = {
+        1: "我想提升不在喵身邊的情況下，依然能好好的陪伴、照顧到喵的能力。物理距離已經被喵縮短了，我會負責縮短剩下的距離。喵寶拜託提示我一點點啦。",
+        2: "真的需要喵的提點，不想再自以為是的關心了。喵能接收或是感受到的關心，才是真的關心。",
+        3: "短期目標就是讓喵願意稍微跨過那條線，願意讓我去上海陪伴和喵相處。不弄丟喵了。但是我真的需要喵寶的幫助和提點。"
+      };
       const updateCard4Ready = () => {
         if (carePicked && moodTouched) {
           goCard5Btn.classList.add("show");
@@ -1602,6 +2112,16 @@
         updateCard4Ready();
       });
 
+      heartOptionBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.heart;
+          if (!key || !heartReplies[key]) return;
+          heartOptionBtns.forEach((it) => it.classList.remove("active"));
+          btn.classList.add("active");
+          heartResponse.textContent = heartReplies[key];
+        });
+      });
+
       document.getElementById("btnChat").addEventListener("click", () => {
         result.textContent = "謝謝喵願意給我機會。";
       });
@@ -1612,7 +2132,7 @@
 
       const unlockTexts = {
         1: "希望這個不要讓喵覺得很幼稚很爛...",
-        2: "試圖透過webnair，加到喵的zoom，找到喵。但失敗，是我自己不給力，沒有每一次都參加找喵喵。怪不得人。最後還是要靠喵主動解除封鎖我...",
+        2: "試圖透過webinar，加到喵的Zoom，找到喵。但失敗，是我自己不給力，沒有每一次都參加找喵喵。怪不得人。最後還是要靠喵主動解除封鎖我...",
         3: "Just miss you so bad..."
       };
 
@@ -1640,11 +2160,21 @@
           : "還沒有內容。";
       };
 
+      const syncHeartPreview = () => {
+        const text = heartNoteInput ? heartNoteInput.value.trim() : "";
+        heartPreviewNote.textContent = text
+          ? `${text}`
+          : "還沒有內容";
+      };
+
       if (nameInput) {
         nameInput.addEventListener("input", syncPreview);
       }
       if (noteInput) {
         noteInput.addEventListener("input", syncPreview);
+      }
+      if (heartNoteInput) {
+        heartNoteInput.addEventListener("input", syncHeartPreview);
       }
 
       saveNoteBtn.addEventListener("click", async () => {
@@ -1665,18 +2195,25 @@
               headers: {
                 "Content-Type": "application/json"
               },
-              body: JSON.stringify({ text: trimmed })
+              body: JSON.stringify({
+                text: trimmed,
+                source: "第 6 張卡片留言",
+                cardTitle: "6) 想留一句話也可以"
+              })
             });
 
             if (!response.ok) {
               throw new Error(`note log failed: ${response.status}`);
             }
+
           } catch (error) {
             console.error("note log failed", error);
           }
         }
 
-        result.textContent = "我把這段話收好了，謝謝喵願意留下心情。";
+        noteResult.textContent = trimmed
+          ? "我會把這段話記下來，照著喵說的方向努力。"
+          : "";
       });
 
       clearNoteBtn.addEventListener("click", () => {
@@ -1688,6 +2225,52 @@
         }
         localStorage.removeItem("apology_note");
         syncPreview();
+      });
+
+      saveHeartNoteBtn.addEventListener("click", async () => {
+        const heartText = heartNoteInput ? heartNoteInput.value : "";
+        localStorage.setItem(
+          "apology_heart_note",
+          JSON.stringify({
+            text: heartText
+          })
+        );
+
+        const trimmed = heartText.trim();
+        if (trimmed) {
+          try {
+            const response = await fetch("/api/note", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                text: trimmed,
+                source: "第 8 張卡片留言",
+                cardTitle: "7) 如果喵願意，行行好指點我一下下，該怎麼彌補喵寶才能感受到啦拜託"
+              })
+            });
+
+            if (!response.ok) {
+              throw new Error(`heart note log failed: ${response.status}`);
+            }
+
+          } catch (error) {
+            console.error("heart note log failed", error);
+          }
+        }
+
+        heartResult.textContent = trimmed
+          ? "我會把這段話記下來，照著喵說的方向努力。"
+          : "";
+      });
+
+      clearHeartNoteBtn.addEventListener("click", () => {
+        if (heartNoteInput) {
+          heartNoteInput.value = "";
+        }
+        localStorage.removeItem("apology_heart_note");
+        syncHeartPreview();
       });
 
       let isPaused = false;
@@ -1728,6 +2311,12 @@
       musicToggle.addEventListener("click", () => {
         const isOpen = musicPanel.classList.toggle("open");
         musicToggle.textContent = isOpen ? "🎵 收起音樂" : "🎵 開啟音樂";
+      });
+
+      themeToggle.addEventListener("click", () => {
+        const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
+        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+        applyTheme(nextTheme);
       });
 
       const showCard = (index, smooth = true) => {
@@ -1848,12 +2437,27 @@
       }
       syncPreview();
 
+      const storedHeartNote = localStorage.getItem("apology_heart_note");
+      if (storedHeartNote) {
+        try {
+          const parsed = JSON.parse(storedHeartNote);
+          if (heartNoteInput) {
+            heartNoteInput.value = parsed.text || "";
+          }
+        } catch (e) {
+          localStorage.removeItem("apology_heart_note");
+        }
+      }
+      syncHeartPreview();
+
       if (sessionStorage.getItem("apology_unlocked") === "true") {
         startExperience();
       } else {
         appShell.setAttribute("aria-hidden", "true");
         setTimeout(() => passwordInput.focus(), 80);
       }
+
+      applyTheme(getInitialTheme());
 
       const fallItems = ["🧸", "💗", "🐱", "🌸", "🌹", "🌻", "🌷", "🌺", "🍀", "🌼", "🌿"];
       const doodleItems = ["🧸", "🐱", "💗", "🌸", "🌻", "🌹", "🍀", "🌿"];
