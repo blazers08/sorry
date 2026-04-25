@@ -271,6 +271,7 @@
         box-shadow: var(--soft-shadow);
         backdrop-filter: blur(16px);
         padding: 24px;
+        padding-top: 66px;
         opacity: 0;
         transform: translateY(22px) scale(0.985);
         transition: opacity 520ms ease, transform 520ms ease;
@@ -397,13 +398,6 @@
         background: linear-gradient(180deg, rgba(52, 30, 37, 0.9), rgba(33, 22, 28, 0.88));
       }
 
-      .theme-dock {
-        position: fixed;
-        right: 14px;
-        top: 14px;
-        z-index: 16;
-      }
-
       .theme-toggle {
         border: 1px solid rgba(255, 255, 255, 0.62);
         border-radius: 999px;
@@ -421,6 +415,15 @@
         border-color: rgba(255, 228, 220, 0.12);
         color: var(--text);
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
+      }
+
+      .card .theme-toggle {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 3;
+        padding: 8px 12px;
+        font-size: 0.88rem;
       }
 
       .card.visible {
@@ -1274,6 +1277,7 @@
 
         .card {
           padding: 16px;
+          padding-top: 58px;
           border-radius: 20px;
         }
 
@@ -1451,15 +1455,18 @@
           gap: 6px;
         }
 
-        .theme-dock {
-          right: 12px;
-          top: calc(10px + env(safe-area-inset-top));
-        }
-
         .theme-toggle {
           min-height: 42px;
           padding: 8px 12px;
           font-size: 0.9rem;
+        }
+
+        .card .theme-toggle {
+          top: 12px;
+          right: 12px;
+          min-height: 38px;
+          padding: 7px 10px;
+          font-size: 0.8rem;
         }
 
         .music-toggle,
@@ -1512,6 +1519,7 @@
       @media (max-width: 430px) {
         .card {
           padding: 14px;
+          padding-top: 54px;
         }
 
         .hero h1 {
@@ -1534,6 +1542,10 @@
         .heart-note textarea,
         .heart-note .preview-note {
           padding: 12px;
+        }
+
+        .heart-note .note-actions {
+          flex-direction: column;
         }
 
         .sticker-row {
@@ -1686,7 +1698,7 @@
         <button class="story-next flow-next" type="button" data-next="8">把我後面真正想說的看完</button>
       </section>
 
-      <section class="card heart-card" id="card8">
+      <section class="card heart-card note-box" id="card8">
         <h2 class="section-title">7) 如果喵願意，行行好指點我一下下嘛～拜託</h2>
         <p class="heart-lead">我依然會努力自己尋找答案，只是如果喵願意提點，我會更知道該怎麼做能讓喵在跨過那條線的時候，能不再恐懼、害怕。在喵無法跨越的情況下，更能安撫喵，陪著喵，牽著喵一起慢慢跨過。我也能更對症下藥更好地去彌補我的過錯。</p>
         <div class="heart-grid" id="heartGrid">
@@ -1714,10 +1726,6 @@
         <p class="result" id="result"></p>
       </section>
     </main>
-
-    <div class="theme-dock">
-      <button class="theme-toggle" id="themeToggle" type="button">🌙 夜間</button>
-    </div>
 
     <div class="music-dock">
       <button class="music-toggle" id="musicToggle">🎵 開啟音樂</button>
@@ -1788,7 +1796,6 @@
       const musicToggle = document.getElementById("musicToggle");
       const musicPanel = document.getElementById("musicPanel");
       const musicFrame = document.getElementById("musicFrame");
-      const themeToggle = document.getElementById("themeToggle");
       const fogLetter = document.getElementById("fogLetter");
       const openHint = document.getElementById("openHint");
       const goCard3Btn = document.getElementById("goCard3");
@@ -1803,6 +1810,7 @@
       const pushSnoopy = document.getElementById("pushSnoopy");
       const allCards = [...document.querySelectorAll(".page .card")];
       const flowNextBtns = [...document.querySelectorAll(".flow-next")];
+      const themeToggles = [];
       const letterLines = [
         "之前我不成熟的所作所為，不僅讓喵很受傷，也阻礙了我們之間的關係。",
         "同樣的錯，一直反覆犯。不珍惜喵給的機會，反而又造成更嚴重的傷害。",
@@ -1824,7 +1832,9 @@
 
       const applyTheme = (theme) => {
         document.body.classList.toggle("dark", theme === "dark");
-        themeToggle.textContent = theme === "dark" ? "☀️ 亮色" : "🌙 夜間";
+        themeToggles.forEach((btn) => {
+          btn.textContent = theme === "dark" ? "☀️ 亮色" : "🌙 夜間";
+        });
       };
 
       const getInitialTheme = () => {
@@ -2313,10 +2323,18 @@
         musicToggle.textContent = isOpen ? "🎵 收起音樂" : "🎵 開啟音樂";
       });
 
-      themeToggle.addEventListener("click", () => {
-        const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
-        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-        applyTheme(nextTheme);
+      allCards.forEach((card) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "theme-toggle";
+        btn.textContent = "🌙 夜間";
+        btn.addEventListener("click", () => {
+          const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
+          localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+          applyTheme(nextTheme);
+        });
+        card.appendChild(btn);
+        themeToggles.push(btn);
       });
 
       const showCard = (index, smooth = true) => {
