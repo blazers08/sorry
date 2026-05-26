@@ -3618,10 +3618,8 @@
         const choices = [...card.querySelectorAll(".proposal-choice")];
         const resultEl = card.querySelector("[data-proposal-result]");
         const backBtn = card.querySelector("[data-proposal-back]");
-        const proposalId = card.dataset.proposalId || "proposal";
         const source = card.dataset.proposalSource || "提議";
         const title = card.dataset.proposalTitle || "提議";
-        const storageKey = `apology_proposal_${proposalId}`;
 
         const markSelected = (value) => {
           choices.forEach((b) => b.classList.toggle("active", b.dataset.choice === value));
@@ -3632,16 +3630,6 @@
             ? "謝謝喵願意"
             : "不要，我要送，讓我送嘛～哄喵寶啦";
 
-        try {
-          const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
-          if (saved && saved.choice) {
-            markSelected(saved.choice);
-            if (resultEl) resultEl.textContent = replyText(saved.choice);
-          }
-        } catch (e) {
-          // ignore
-        }
-
         choices.forEach((btn) => {
           btn.addEventListener("click", () => {
             const choice = btn.dataset.choice || "";
@@ -3649,11 +3637,6 @@
 
             markSelected(choice);
             if (resultEl) resultEl.textContent = replyText(choice);
-
-            localStorage.setItem(
-              storageKey,
-              JSON.stringify({ choice, savedAt: new Date().toISOString() })
-            );
 
             fetch("/api/note", {
               method: "POST",
