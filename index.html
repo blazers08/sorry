@@ -2120,6 +2120,525 @@
         }
       }
 
+      /* ============================================================
+         PROPOSAL BLOCK — reusable "I want to do X, need your yes" card
+         + floating CTA pill so it's always reachable.
+         ============================================================ */
+
+      .proposal-card {
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.78) 0 14%, transparent 40%),
+          radial-gradient(circle at 88% 16%, rgba(255, 192, 210, 0.5) 0 12%, transparent 32%),
+          linear-gradient(160deg, rgba(255, 250, 248, 0.96), rgba(255, 232, 236, 0.88));
+      }
+
+      body.dark .proposal-card {
+        background:
+          linear-gradient(180deg, rgba(58, 32, 42, 0.94), rgba(28, 18, 24, 0.96)),
+          radial-gradient(circle at 86% 14%, rgba(214, 110, 148, 0.16), transparent 32%);
+      }
+
+      .proposal-title {
+        color: #a44a6c;
+      }
+
+      body.dark .proposal-title {
+        color: #f3b7cb;
+      }
+
+      .proposal-lead {
+        margin: 0 0 8px;
+        font-family: "Patrick Hand", cursive;
+        font-size: clamp(1.05rem, 0.6vw + 0.95rem, 1.35rem);
+        color: #8a4f67;
+        letter-spacing: 0.02em;
+      }
+
+      body.dark .proposal-lead {
+        color: #f0b3c6;
+      }
+
+      .proposal-context {
+        margin: 0 0 14px;
+        line-height: 1.85;
+        color: var(--text-soft);
+        background: linear-gradient(180deg, rgba(255, 248, 252, 0.7), rgba(255, 243, 248, 0.6));
+        border: 1px dashed rgba(231, 158, 191, 0.6);
+        border-radius: var(--r-md);
+        padding: 12px 14px;
+      }
+
+      body.dark .proposal-context {
+        background: linear-gradient(180deg, rgba(48, 32, 38, 0.6), rgba(34, 22, 28, 0.6));
+        border-color: rgba(248, 185, 208, 0.22);
+      }
+
+      .proposal-choices {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .proposal-choice {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid rgba(231, 168, 192, 0.4);
+        border-radius: var(--r-md);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 244, 248, 0.88));
+        color: #7a4f63;
+        text-align: left;
+        font: inherit;
+        padding: 14px 16px;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(189, 138, 156, 0.08);
+        transition:
+          transform 200ms cubic-bezier(0.2, 0.7, 0.3, 1.4),
+          background 220ms ease,
+          border-color 220ms ease,
+          box-shadow 220ms ease;
+      }
+
+      .proposal-choice:hover {
+        transform: translateY(-2px);
+      }
+
+      .proposal-choice:active {
+        transform: translateY(0) scale(0.98);
+      }
+
+      .proposal-choice.active {
+        background: linear-gradient(120deg, #fff0f6, #fde6ee);
+        border-color: #e88aae;
+        box-shadow: 0 14px 28px rgba(190, 110, 145, 0.18);
+        color: #8a3a5c;
+      }
+
+      body.dark .proposal-choice {
+        background: linear-gradient(180deg, rgba(54, 38, 44, 0.94), rgba(40, 28, 34, 0.92));
+        border-color: rgba(248, 185, 208, 0.18);
+        color: var(--text);
+      }
+
+      body.dark .proposal-choice.active {
+        background: linear-gradient(120deg, rgba(120, 56, 84, 0.95), rgba(78, 42, 60, 0.9));
+        border-color: rgba(247, 164, 199, 0.4);
+        color: #ffe2ec;
+      }
+
+      .proposal-choice-emoji {
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+
+      .proposal-choice-text {
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      .proposal-reply {
+        display: grid;
+        gap: 10px;
+      }
+
+      .proposal-reply textarea {
+        width: 100%;
+        min-height: 96px;
+        border: 1px solid rgba(236, 183, 204, 0.5);
+        border-radius: var(--r-md);
+        padding: 12px 14px;
+        font: inherit;
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.86);
+        resize: vertical;
+        transition: border-color 200ms ease, box-shadow 200ms ease;
+      }
+
+      body.dark .proposal-reply textarea {
+        background: linear-gradient(180deg, rgba(44, 32, 34, 0.94), rgba(31, 24, 25, 0.92));
+        border-color: rgba(248, 185, 208, 0.22);
+      }
+
+      .proposal-hint {
+        margin: 4px 0 0;
+        opacity: 0.7;
+      }
+
+      /* Hero in-card CTA — soft pill living inside the hero, matches
+         the romantic glass aesthetic instead of floating loudly. */
+      .hero-proposal-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 18px auto 4px;
+        padding: 11px 20px;
+        border: 1px solid rgba(232, 138, 174, 0.5);
+        border-radius: var(--r-pill);
+        background: linear-gradient(135deg, rgba(255, 230, 240, 0.92), rgba(255, 244, 248, 0.88));
+        color: #a44a6c;
+        font: inherit;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        font-size: 0.95rem;
+        cursor: pointer;
+        box-shadow:
+          0 12px 24px rgba(184, 79, 113, 0.16),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        position: relative;
+        z-index: 2;
+        transition:
+          transform 220ms cubic-bezier(0.2, 0.7, 0.3, 1.4),
+          box-shadow 220ms ease,
+          background 220ms ease;
+      }
+
+      .hero-proposal-cta:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 18px 32px rgba(184, 79, 113, 0.24),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        background: linear-gradient(135deg, rgba(255, 220, 235, 0.96), rgba(255, 238, 244, 0.92));
+      }
+
+      .hero-proposal-cta:active {
+        transform: translateY(0) scale(0.98);
+      }
+
+      .hero-proposal-cta::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: inherit;
+        border: 1px solid rgba(232, 138, 174, 0.35);
+        z-index: -1;
+        animation: heroCtaRipple 2.8s ease-out infinite;
+      }
+
+      @keyframes heroCtaRipple {
+        0% {
+          transform: scale(1);
+          opacity: 0.55;
+        }
+        70% {
+          transform: scale(1.12);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1.12);
+          opacity: 0;
+        }
+      }
+
+      .hero-proposal-emoji {
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+
+      .hero-proposal-arrow {
+        font-family: "Patrick Hand", cursive;
+        font-size: 1.1rem;
+        line-height: 1;
+        transition: transform 220ms ease;
+      }
+
+      .hero-proposal-cta:hover .hero-proposal-arrow {
+        transform: translateX(3px);
+      }
+
+      body.dark .hero-proposal-cta {
+        background: linear-gradient(135deg, rgba(120, 56, 84, 0.62), rgba(86, 40, 60, 0.58));
+        border-color: rgba(247, 184, 207, 0.32);
+        color: #ffdbe7;
+        box-shadow:
+          0 12px 24px rgba(0, 0, 0, 0.32),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      body.dark .hero-proposal-cta:hover {
+        background: linear-gradient(135deg, rgba(138, 64, 96, 0.74), rgba(102, 48, 72, 0.68));
+      }
+
+      body.dark .hero-proposal-cta::before {
+        border-color: rgba(247, 184, 207, 0.28);
+      }
+
+      /* Mark proposal chapter on progress nav */
+      .top-progress .dot.is-proposal::before,
+      .chapter-rail .rail-dot.is-proposal::before {
+        content: "🌹";
+        position: absolute;
+        font-size: 0.7rem;
+        line-height: 1;
+        pointer-events: none;
+      }
+      .top-progress .dot.is-proposal {
+        position: relative;
+      }
+      .top-progress .dot.is-proposal::before {
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.85;
+      }
+      .chapter-rail .rail-dot.is-proposal::before {
+        font-size: 0.65rem;
+        top: -2px;
+        right: -10px;
+      }
+
+      @media (min-width: 768px) {
+        .proposal-choices {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .hero-proposal-cta {
+          font-size: 1rem;
+          padding: 12px 22px;
+        }
+      }
+
+      /* Mobile sizing for the hero CTA */
+      @media (max-width: 640px) {
+        .hero-proposal-cta {
+          font-size: 0.88rem;
+          padding: 10px 16px;
+          gap: 7px;
+          margin-top: 14px;
+          max-width: calc(100% - 8px);
+        }
+        .proposal-choices {
+          grid-template-columns: 1fr;
+        }
+        /* Binary yes/no stays side-by-side even on narrow screens */
+        .proposal-choices-binary {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+      }
+
+      /* Binary yes/no styling — fill width, centered, more emphatic */
+      .proposal-choices-binary {
+        grid-template-columns: 1fr 1fr;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .proposal-choices-binary .proposal-choice {
+        justify-content: center;
+        text-align: center;
+        padding: 16px 18px;
+        font-size: 1.05rem;
+      }
+
+      .proposal-choice-yes {
+        background: linear-gradient(180deg, #ffd4e1, #ffb7cd);
+        border-color: rgba(232, 138, 174, 0.5);
+        color: #8a3a5c;
+      }
+
+      .proposal-choice-no {
+        background: linear-gradient(180deg, #f7efe9, #ecdfd4);
+        border-color: rgba(170, 130, 110, 0.3);
+        color: #6f5747;
+      }
+
+      .proposal-choice-yes.active {
+        background: linear-gradient(135deg, #f497b8, #d96f95);
+        border-color: #b9577a;
+        color: #fff;
+        box-shadow: 0 16px 30px rgba(184, 79, 113, 0.3);
+      }
+
+      .proposal-choice-no.active {
+        background: linear-gradient(135deg, #c9b4a3, #a89180);
+        border-color: #8c7563;
+        color: #fff;
+        box-shadow: 0 16px 30px rgba(140, 117, 99, 0.28);
+      }
+
+      .proposal-choice:disabled {
+        cursor: default;
+      }
+
+      .proposal-choice:disabled:not(.active) {
+        opacity: 0.45;
+      }
+
+      body.dark .proposal-choice-yes {
+        background: linear-gradient(180deg, rgba(120, 56, 84, 0.85), rgba(86, 40, 60, 0.85));
+        color: #ffdbe7;
+      }
+
+      body.dark .proposal-choice-no {
+        background: linear-gradient(180deg, rgba(60, 50, 46, 0.85), rgba(44, 36, 32, 0.85));
+        color: #efe1d4;
+      }
+
+      /* Ensure the "回到開頭" button clears the music dock on mobile,
+         same trick used by card2/7/8 */
+      @media (max-width: 640px) {
+        body:has(#cardProposal.force-show) #cardProposal,
+        body:has(#cardProposal.visible) #cardProposal {
+          padding-bottom: calc(210px + env(safe-area-inset-bottom));
+        }
+        body:has(#cardProposal.force-show) .music-dock,
+        body:has(#cardProposal.visible) .music-dock {
+          bottom: 4px;
+        }
+      }
+
+      /* ============================================================
+         iOS / iPhone 15 Pro Max polish
+         Dynamic Island, Home Indicator, dvh, tap targets,
+         tap-highlight, music-dock collision fix.
+         ============================================================ */
+
+      /* Remove iOS blue tap flash on every interactive */
+      button,
+      input,
+      textarea,
+      a,
+      .fog-line,
+      .snoopy-figure,
+      .top-progress .dot,
+      .chapter-rail .rail-dot {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* Respect Dynamic Island when sticky strip is at viewport top */
+      .top-progress {
+        top: 0;
+        padding-top: calc(14px + env(safe-area-inset-top));
+      }
+
+      /* 44pt tap area for tiny dots without making them visually bigger */
+      .top-progress .dot {
+        position: relative;
+      }
+      .top-progress .dot::after {
+        content: "";
+        position: absolute;
+        inset: -18px -6px;
+      }
+
+      /* Use the dynamic viewport height to avoid jumping when iOS URL
+         bar shows/hides */
+      @supports (height: 100dvh) {
+        body {
+          min-height: 100dvh;
+        }
+      }
+      @media (max-width: 640px) {
+        @supports (height: 100dvh) {
+          body {
+            min-height: 100dvh;
+          }
+          .card.force-show,
+          .card.visible {
+            min-height: calc(100dvh - 76px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+          }
+        }
+      }
+
+      /* iPhone 15 Pro Max landscape (932 x 430) — falls into tablet MQ
+         but very short. Compress vertical paddings. */
+      @media (max-height: 480px) and (orientation: landscape) {
+        .top-progress {
+          padding: 8px 14px 6px;
+        }
+        .card {
+          padding-top: 56px;
+        }
+      }
+
+      /* Touch-target floor: ensure every primary action is >= 44pt */
+      @media (max-width: 640px) {
+        .choice-btn,
+        .lock-btn,
+        .btn-save,
+        .btn-clear,
+        .btn-chat,
+        .btn-rest,
+        .story-next,
+        .proposal-choice,
+        .care-option,
+        .heart-option,
+        .card3-commit,
+        .unlock-btn,
+        .music-toggle {
+          min-height: 48px;
+        }
+
+        /* Stack the heart card's two buttons by default */
+        .heart-note .note-actions {
+          flex-direction: column;
+        }
+
+        /* Mood slider thumb wants a bigger hit area */
+        .mood-wrap input[type="range"] {
+          height: 36px;
+        }
+
+        /* Section titles get a touch more breathing room on iPhone */
+        .section-title {
+          margin-bottom: 14px;
+          line-height: 1.45;
+        }
+
+        /* Hero on exactly 430px (iPhone 15 PM) — keep h1 readable */
+        .hero h1 {
+          font-size: clamp(1.55rem, 7.4vw, 2.1rem);
+          letter-spacing: 0.02em;
+        }
+
+        /* Letter padding bottom so music dock doesn't sit on text */
+        body:has(#card2.visible) #card2,
+        body:has(#card7.visible) #card7,
+        body:has(#card8.visible) #card8 {
+          padding-bottom: calc(210px + env(safe-area-inset-bottom));
+        }
+
+        /* Push-snoopy guard so it doesn't fly through the notch */
+        .push-snoopy {
+          top: calc(env(safe-area-inset-top) + 40vh);
+        }
+      }
+
+      /* Pure iPhone-15-Pro-Max width tuning */
+      @media (max-width: 430px) {
+        .top-progress {
+          gap: 5px;
+        }
+        .top-progress .dot {
+          width: 18px;
+        }
+        .top-progress .dot.active {
+          width: 28px;
+        }
+        .proposal-context {
+          padding: 11px 12px;
+          line-height: 1.78;
+        }
+        .proposal-choice {
+          padding: 13px 14px;
+        }
+        .heart-lead {
+          line-height: 1.78;
+        }
+      }
+
+      /* Smooth scrolling on iOS for the in-card scroll containers */
+      .letter,
+      .preview-note,
+      .heart-response,
+      .care-reply,
+      .card3-reveal,
+      .unlock-panel,
+      .proposal-context {
+        -webkit-overflow-scrolling: touch;
+      }
+
       /* Reduced motion respect */
       @media (prefers-reduced-motion: reduce) {
         *,
@@ -2170,6 +2689,11 @@
           <button class="choice-btn choice-yes" id="acceptYes" type="button">好</button>
           <button class="choice-btn choice-no" id="acceptNo" type="button">不好</button>
         </div>
+        <button class="hero-proposal-cta" id="heroProposalCta" type="button">
+          <span class="hero-proposal-emoji" aria-hidden="true">🌹</span>
+          <span class="hero-proposal-text">我要做的事</span>
+          <span class="hero-proposal-arrow" aria-hidden="true">→</span>
+        </button>
       </section>
 
       <section class="card envelope" id="card2">
@@ -2282,6 +2806,34 @@
         <button class="btn-chat" id="btnChat">願意</button>
         <button class="btn-rest" id="btnRest">再看看我表現</button>
         <p class="result" id="result"></p>
+      </section>
+
+      <section
+        class="card proposal-card"
+        id="cardProposal"
+        data-proposal-id="flowers"
+        data-proposal-source="提議 - 送花"
+        data-proposal-title="送花給妳"
+      >
+        <h2 class="section-title proposal-title">🌹 我要做的行動，求喵原諒我</h2>
+        <p class="proposal-lead">我找到蛋糕店要買喵愛吃的賠罪，哄喵開心。花店也有找到，但剩下一些細節要確認。買花送給喵，讓喵看花聞花香能心情好。</p>
+        <div class="proposal-context">好好哄喵，讓喵不要那麼氣我。但是我這個方式，要請喵喵自己去取，如果我有辦法直接送到喵手上，我也想。我有盡量找離喵不遠的店，方便喵去拿。但是我買的時候必須要填喵的名字，所以我沒辦法給喵驚喜，只能跟喵講我要做這件事，徵求喵的同意。如果喵不信，可以去看相簿。這次我要直接送到手上。
+        </div>
+
+        <div class="proposal-choices proposal-choices-binary" data-choices>
+          <button class="proposal-choice proposal-choice-yes" type="button" data-choice="願意">
+            <span class="proposal-choice-emoji">💗</span>
+            <span class="proposal-choice-text">願意</span>
+          </button>
+          <button class="proposal-choice proposal-choice-no" type="button" data-choice="不願意">
+            <span class="proposal-choice-emoji">🤍</span>
+            <span class="proposal-choice-text">不願意</span>
+          </button>
+        </div>
+
+        <p class="result" data-proposal-result></p>
+
+        <button class="story-next" type="button" data-proposal-back>回到開頭</button>
       </section>
     </main>
 
@@ -2953,6 +3505,7 @@
           card.classList.remove("push-away");
         });
         updateProgressNav(activeCardIndex);
+        if (typeof updateProposalCta === "function") updateProposalCta(activeCardIndex);
         pushSnoopy.classList.remove("run");
         if (smooth) {
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -3044,6 +3597,92 @@
           if (!Number.isFinite(target) || target < 1) return;
           showCard(target - 1);
         });
+      });
+
+      const proposalCard = document.getElementById("cardProposal");
+      const heroProposalCta = document.getElementById("heroProposalCta");
+      const proposalIndex = proposalCard ? allCards.indexOf(proposalCard) : -1;
+
+      if (proposalIndex >= 0) {
+        if (progressDots[proposalIndex]) progressDots[proposalIndex].classList.add("is-proposal");
+        if (railDots[proposalIndex]) railDots[proposalIndex].classList.add("is-proposal");
+      }
+
+      const updateProposalCta = () => {};
+
+      if (heroProposalCta && proposalIndex >= 0) {
+        heroProposalCta.addEventListener("click", () => showCard(proposalIndex));
+      }
+
+      document.querySelectorAll(".proposal-card").forEach((card) => {
+        const choices = [...card.querySelectorAll(".proposal-choice")];
+        const resultEl = card.querySelector("[data-proposal-result]");
+        const backBtn = card.querySelector("[data-proposal-back]");
+        const proposalId = card.dataset.proposalId || "proposal";
+        const source = card.dataset.proposalSource || "提議";
+        const title = card.dataset.proposalTitle || "提議";
+        const storageKey = `apology_proposal_${proposalId}`;
+        let sending = false;
+
+        const markSelected = (value) => {
+          choices.forEach((b) => b.classList.toggle("active", b.dataset.choice === value));
+        };
+
+        const replyText = (choice) =>
+          choice === "願意"
+            ? "謝謝喵願意"
+            : "不要，我要送，讓我送哄喵寶啦";
+
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+          if (saved && saved.choice) {
+            markSelected(saved.choice);
+            choices.forEach((b) => (b.disabled = true));
+            if (resultEl) resultEl.textContent = replyText(saved.choice);
+          }
+        } catch (e) {
+          // ignore
+        }
+
+        choices.forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            if (sending || btn.disabled) return;
+            const choice = btn.dataset.choice || "";
+            if (!choice) return;
+
+            sending = true;
+            markSelected(choice);
+            choices.forEach((b) => (b.disabled = true));
+            if (resultEl) resultEl.textContent = "送出中...";
+
+            try {
+              const response = await fetch("/api/note", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  text: `回覆：${choice}`,
+                  source,
+                  cardTitle: title
+                })
+              });
+              if (!response.ok) throw new Error(`proposal send failed: ${response.status}`);
+              localStorage.setItem(
+                storageKey,
+                JSON.stringify({ choice, savedAt: new Date().toISOString() })
+              );
+              if (resultEl) resultEl.textContent = replyText(choice);
+            } catch (error) {
+              console.error("proposal send failed", error);
+              if (resultEl) resultEl.textContent = "送出時出了點狀況，等等再試一次好嗎。";
+              choices.forEach((b) => (b.disabled = false));
+              sending = false;
+            }
+          });
+        });
+
+        if (backBtn) {
+          backBtn.addEventListener("click", () => showCard(0));
+        }
       });
 
       const stored = localStorage.getItem("apology_note");
