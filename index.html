@@ -3622,7 +3622,6 @@
         const source = card.dataset.proposalSource || "提議";
         const title = card.dataset.proposalTitle || "提議";
         const storageKey = `apology_proposal_${proposalId}`;
-        let sending = false;
 
         const markSelected = (value) => {
           choices.forEach((b) => b.classList.toggle("active", b.dataset.choice === value));
@@ -3631,13 +3630,12 @@
         const replyText = (choice) =>
           choice === "願意"
             ? "謝謝喵願意"
-            : "不要，我要送，讓我送哄喵寶啦";
+            : "不要，我要送，讓我送嘛～哄喵寶啦";
 
         try {
           const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
           if (saved && saved.choice) {
             markSelected(saved.choice);
-            choices.forEach((b) => (b.disabled = true));
             if (resultEl) resultEl.textContent = replyText(saved.choice);
           }
         } catch (e) {
@@ -3645,38 +3643,29 @@
         }
 
         choices.forEach((btn) => {
-          btn.addEventListener("click", async () => {
-            if (sending || btn.disabled) return;
+          btn.addEventListener("click", () => {
             const choice = btn.dataset.choice || "";
             if (!choice) return;
 
-            sending = true;
             markSelected(choice);
-            choices.forEach((b) => (b.disabled = true));
-            if (resultEl) resultEl.textContent = "送出中...";
+            if (resultEl) resultEl.textContent = replyText(choice);
 
-            try {
-              const response = await fetch("/api/note", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  text: `回覆：${choice}`,
-                  source,
-                  cardTitle: title
-                })
-              });
-              if (!response.ok) throw new Error(`proposal send failed: ${response.status}`);
-              localStorage.setItem(
-                storageKey,
-                JSON.stringify({ choice, savedAt: new Date().toISOString() })
-              );
-              if (resultEl) resultEl.textContent = replyText(choice);
-            } catch (error) {
+            localStorage.setItem(
+              storageKey,
+              JSON.stringify({ choice, savedAt: new Date().toISOString() })
+            );
+
+            fetch("/api/note", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                text: `回覆：${choice}`,
+                source,
+                cardTitle: title
+              })
+            }).catch((error) => {
               console.error("proposal send failed", error);
-              if (resultEl) resultEl.textContent = "送出時出了點狀況，等等再試一次好嗎。";
-              choices.forEach((b) => (b.disabled = false));
-              sending = false;
-            }
+            });
           });
         });
 
